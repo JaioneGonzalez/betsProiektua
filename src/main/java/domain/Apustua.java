@@ -85,7 +85,7 @@ public class Apustua implements Serializable{
 		s.eguneratuApustuKantitatea();
 	}
 	
-	// 
+	// :)
 	@Override
 	public boolean equals(Object o) {
 		Apustua a = (Apustua) o; 
