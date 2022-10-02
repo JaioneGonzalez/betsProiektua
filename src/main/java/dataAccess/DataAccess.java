@@ -67,7 +67,6 @@ public class DataAccess  {
 		
 		db.getTransaction().begin();
 		try {
-
 			
 		   Calendar today = Calendar.getInstance();
 		   
