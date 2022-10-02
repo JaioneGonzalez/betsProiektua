@@ -864,7 +864,7 @@ public void open(boolean initializeMode){
 				for(ApustuAnitza apu: erab.getNork().getApustuAnitzak()) {
 					if(apu.getApustuKopia().equals(apustuAnitza.getApustuKopia())) {
 						b=false;
-					}
+					}//
 				}
 				if(b) {
 					if(erab.getNork().getDiruLimitea()<balioa) {
