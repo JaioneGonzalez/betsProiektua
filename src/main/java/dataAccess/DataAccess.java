@@ -862,7 +862,7 @@ public void open(boolean initializeMode){
 				Jarraitzailea erab=db.find(Jarraitzailea.class, reg.getJarraitzaileaNumber());
 				b=true;
 				for(ApustuAnitza apu: erab.getNork().getApustuAnitzak()) {
-					if(apu.getApustuKopia()==apustuAnitza.getApustuKopia()) {
+					if(apu.getApustuKopia().equals(apustuAnitza.getApustuKopia())) {
 						b=false;
 					}
 				}
