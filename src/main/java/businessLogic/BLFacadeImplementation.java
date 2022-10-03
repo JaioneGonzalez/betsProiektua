@@ -35,9 +35,9 @@ public class BLFacadeImplementation  implements BLFacade {
 	public BLFacadeImplementation()  {		
 		System.out.println("Creating BLFacadeImplementation instance");
 		ConfigXML c=ConfigXML.getInstance();
-		
-		if (c.getDataBaseOpenMode().equals("initialize")) {
-		    dbManager=new DataAccess(c.getDataBaseOpenMode().equals("initialize"));
+		boolean condition = c.getDataBaseOpenMode().equals("initialize");
+		if (condition) {
+		    dbManager=new DataAccess(condition);
 		    dbManager.initializeDB();
 		    } else
 		     dbManager=new DataAccess();
