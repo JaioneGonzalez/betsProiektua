@@ -1151,5 +1151,5 @@ public void open(boolean initializeMode){
 		query.setParameter(2, t.getIzena());
 		return query.getResultList();
 		
-	}
+	}//s
 }
