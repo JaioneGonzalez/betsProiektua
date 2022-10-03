@@ -17,12 +17,14 @@ import javax.swing.table.DefaultTableModel;
 
 public class FindQuestionsGUI extends JFrame {
 	private static final long serialVersionUID = 1L;
+	
+	private static ResourceBundle etiquetas= ResourceBundle.getBundle("Etiquetas");
 
-	private final JLabel jLabelEventDate = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("EventDate"));
-	private final JLabel jLabelQueries = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Queries")); 
-	private final JLabel jLabelEvents = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Events")); 
+	private final JLabel jLabelEventDate = new JLabel(etiquetas.getString("EventDate"));
+	private final JLabel jLabelQueries = new JLabel(etiquetas.getString("Queries")); 
+	private final JLabel jLabelEvents = new JLabel(etiquetas.getString("Events")); 
 
-	private JButton jButtonClose = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Close"));
+	private JButton jButtonClose = new JButton(etiquetas.getString("Close"));
 
 	// Code for JCalendar
 	private JCalendar jCalendar1 = new JCalendar();
@@ -41,13 +43,13 @@ public class FindQuestionsGUI extends JFrame {
 
 	
 	private String[] columnNamesEvents = new String[] {
-			ResourceBundle.getBundle("Etiquetas").getString("EventN"), 
-			ResourceBundle.getBundle("Etiquetas").getString("Event"), 
+			etiquetas.getString("EventN"), 
+			etiquetas.getString("Event"), 
 
 	};
 	private String[] columnNamesQueries = new String[] {
-			ResourceBundle.getBundle("Etiquetas").getString("QueryN"), 
-			ResourceBundle.getBundle("Etiquetas").getString("Query")
+			etiquetas.getString("QueryN"), 
+			etiquetas.getString("Query")
 
 	};
 
@@ -103,7 +105,6 @@ public class FindQuestionsGUI extends JFrame {
 		{
 			public void propertyChange(PropertyChangeEvent propertychangeevent)
 			{
-
 				if (propertychangeevent.getPropertyName().equals("locale"))
 				{
 					jCalendar1.setLocale((Locale) propertychangeevent.getNewValue());
@@ -115,12 +116,8 @@ public class FindQuestionsGUI extends JFrame {
 					DateFormat dateformat1 = DateFormat.getDateInstance(1, jCalendar1.getLocale());
 //					jCalendar1.setCalendar(calendarAct);
 					Date firstDay=UtilDate.trim(new Date(jCalendar1.getCalendar().getTime().getTime()));
-
-					 
-					
 					int monthAnt = calendarAnt.get(Calendar.MONTH);
 					int monthAct = calendarAct.get(Calendar.MONTH);
-					
 					if (monthAct!=monthAnt) {
 						if (monthAct==monthAnt+2) {
 							// Si en JCalendar está 30 de enero y se avanza al mes siguiente, devolvería 2 de marzo (se toma como equivalente a 30 de febrero)
@@ -128,20 +125,11 @@ public class FindQuestionsGUI extends JFrame {
 							calendarAct.set(Calendar.MONTH, monthAnt+1);
 							calendarAct.set(Calendar.DAY_OF_MONTH, 1);
 						}						
-						
 						jCalendar1.setCalendar(calendarAct);
-
 						BLFacade facade = MainGUI.getBusinessLogic();
-
 						datesWithEventsCurrentMonth=facade.getEventsMonth(jCalendar1.getDate());
 					}
-
-
-
 					CreateQuestionGUI.paintDaysWithEvents(jCalendar1,datesWithEventsCurrentMonth);
-													
-					
-
 					try {
 						tableModelEvents.setDataVector(null, columnNamesEvents);
 						tableModelEvents.setColumnCount(3); // another column added to allocate ev objects
@@ -169,7 +157,6 @@ public class FindQuestionsGUI extends JFrame {
 
 						jLabelQueries.setText(e1.getMessage());
 					}
-
 				}
 			} 
 		});
