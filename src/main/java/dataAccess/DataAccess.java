@@ -837,6 +837,7 @@ public void open(boolean initializeMode){
 				db.persist(ap);
 				apustuAnitza.addApustua(ap);
 				kuote.addApustua(ap);
+				
 			}
 			db.getTransaction().commit();
 			db.getTransaction().begin();
@@ -983,7 +984,7 @@ public void open(boolean initializeMode){
 				resultB = false; 
 			}
 		}
-		if(!resultB) {
+		if(resultB == false) {
 			return false;
 		}else if(new Date().compareTo(event.getEventDate())<0) {
 			TypedQuery<Quote> Qquery = db.createQuery("SELECT q FROM Quote q WHERE q.getQuestion().getEvent().getEventNumber() =?1", Quote.class);
@@ -1043,7 +1044,8 @@ public void open(boolean initializeMode){
 	
 	public List<Event> getEventsAll() {	
 		TypedQuery<Event> query = db.createQuery("SELECT ev FROM Event ev ",Event.class);   
-	 	return query.getResultList();
+		List<Event> events = query.getResultList();
+	 	return events;
 	}
 	
 	
@@ -1117,7 +1119,7 @@ public void open(boolean initializeMode){
 	}
 	
 	public void ezJarraituTaldea(Registered u) {
-		Registered r = db.find(Registered.class, u.getUsername()); 
+		Registered r = (Registered) db.find(Registered.class, u.getUsername()); 
 		db.getTransaction().begin();
 		Team t = db.find(Team.class, r.getTaldea());
 		t.removeUser(r);
@@ -1127,11 +1129,12 @@ public void open(boolean initializeMode){
 	
 	public List<Team> getAllTeams() {	
 		TypedQuery<Team> query = db.createQuery("SELECT t FROM Team t ",Team.class);   
-	 	return query.getResultList();
+		List<Team> teams = query.getResultList();
+	 	return teams;
 	}
 	
 	public void jarraituTaldea(Registered u, Team t) {
-		Registered r = db.find(Registered.class, u.getUsername());
+		Registered r = (Registered) db.find(Registered.class, u.getUsername());
 		Team team = db.find(Team.class, t.getIzena());
 		db.getTransaction().begin();
 		r.setTaldea(team);
