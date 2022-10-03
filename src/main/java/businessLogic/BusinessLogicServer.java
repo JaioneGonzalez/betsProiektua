@@ -47,7 +47,40 @@ public class BusinessLogicServer extends JDialog {
 		}
 	}
 
-
+	public void businessServer1(){
+		textArea = new JTextArea();
+		contentPanel.add(textArea);
+	}
+	public void businessServer2_1(JPanel buttonPane){
+		JButton okButton = new JButton("OK");
+		okButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textArea.append("\n\n\nClosing the server... ");
+			    
+					//server.close();
+				
+				System.exit(1);
+			}
+		});
+		okButton.setActionCommand("OK");
+		buttonPane.add(okButton);
+		getRootPane().setDefaultButton(okButton);
+	}
+	public void businessServer2_2(JPanel buttonPane){
+		JButton cancelButton = new JButton("Cancel");
+		cancelButton.setActionCommand("Cancel");
+		buttonPane.add(cancelButton);
+	}
+	
+	public void businessServer2(){
+		JPanel buttonPane = new JPanel();
+		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		getContentPane().add(buttonPane, BorderLayout.SOUTH);
+		//submetodo 1
+		businessServer2_1(buttonPane);
+		//submetodo 2
+		businessServer2_2(buttonPane);
+	}
 	public BusinessLogicServer() {
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -61,36 +94,10 @@ public class BusinessLogicServer extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(0, 0));
-		{
-			textArea = new JTextArea();
-			contentPanel.add(textArea);
-		}
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton okButton = new JButton("OK");
-				okButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						textArea.append("\n\n\nClosing the server... ");
-					    
-							//server.close();
-						
-						System.exit(1);
-					}
-				});
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
-			}
-		}
-		
+		//primer metodo
+		businessServer1();
+		//segundo metodo
+		businessServer2();
 		ConfigXML c=ConfigXML.getInstance();
 
 		if (c.isBusinessLogicLocal()) {
