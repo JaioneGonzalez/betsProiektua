@@ -31,9 +31,9 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="/lab13-mocks/libs/byte-buddy-1.10.1.jar"/>
-	<classpathentry kind="lib" path="/lab13-mocks/libs/mockito-core-3.0.0.jar"/>
-	<classpathentry kind="lib" path="/lab13-mocks/libs/objenesis-tck-3.0.1.jar"/>
-	<classpathentry kind="lib" path="/lab13-mocks/libs/byte-buddy-agent-1.10.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/fifu1/OneDrive/Escritorio/byte-buddy-1.10.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/fifu1/OneDrive/Escritorio/mockito-core-3.0.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/fifu1/OneDrive/Escritorio/objenesis-tck-3.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/fifu1/OneDrive/Escritorio/byte-buddy-agent-1.10.1.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
