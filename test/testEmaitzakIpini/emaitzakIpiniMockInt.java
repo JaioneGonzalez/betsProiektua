@@ -12,6 +12,7 @@ import businessLogic.BLFacade;
 import businessLogic.BLFacadeImplementation;
 import dataAccess.DataAccess;
 import domain.Event;
+import domain.Question;
 import domain.Quote;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -26,9 +27,12 @@ public class emaitzakIpiniMockInt {
 	public void test() {
 
 		try {
+			//Mockito.doReturn(new Quote()).when(sut).find(Mockito.any(Quote.class));
+			//Mockito.doReturn(new Question()).when(sut).find(Mockito.any(Question.class));
+		
 			sut.EmaitzakIpini(mockedQuote);
 		}catch(Exception e) {
-			
+			assertTrue(true);
 		}
 	}
 
