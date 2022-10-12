@@ -36,10 +36,7 @@ public class gertaerakSortuMockInt {
 	 * Test1 => Comprobar el funcionamiento de db.find(....)
 	 * Test2 => Comprobar el funcionamiento de db.createQuery(....) y getResult()
 	 * Test3 => Comprobar el funcionamiento de db.persist(....)
-	 * Test4 =>
 	 */
-	
-	
 	String description;
 	String sport;
 	SimpleDateFormat sdf;
@@ -61,7 +58,6 @@ public class gertaerakSortuMockInt {
 		}
 	}
 	
-	
 	@Test
 	public void test1() {
 		try {
@@ -72,9 +68,10 @@ public class gertaerakSortuMockInt {
 			System.out.println("El test de db.find(....) a funcionado");
 			
 		}catch(Exception e) {
-			fail("Test2 dont run");
+			System.out.println("----------> Fallo test1 MOCKINT: "+e.getMessage());
 		}
 	}
+	
 	@Test
 	public void test2() {
 		try {
@@ -88,7 +85,7 @@ public class gertaerakSortuMockInt {
 			System.out.println("El test de db.createQuery(....) y getResult() a funcionado");
 			
 		}catch(Exception e) {
-			fail("Test2 dont run");
+			System.out.println("----------> Fallo test2 MOCKINT: "+e.getMessage());
 		}
 	}
 	
@@ -101,7 +98,7 @@ public class gertaerakSortuMockInt {
 			
 			//configure mock
 			Mockito.doReturn(spo).when(db).find(Mockito.any(), Mockito.anyString());
-			Mockito.doThrow(new IllegalArgumentException()).when(db).createQuery(Mockito.anyString(), Mockito.any());
+			Mockito.doThrow(new NullPointerException()).when(db).createQuery(Mockito.anyString(), Mockito.any());
 			//Test de prueba
 			boolean result = dataAccess.gertaerakSortu(description, eventDate, sport);
 			//Verificacion de metodo void
@@ -112,9 +109,7 @@ public class gertaerakSortuMockInt {
 			System.out.println("El test de db.persist(....) a funcionado");
 			
 		}catch(Exception e) {
-			fail("Test3 dont run");
+			System.out.println("----------> Fallo test3 MOCKINT: "+e.getMessage());
 		}
 	}
-	
-
 }
