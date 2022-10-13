@@ -19,6 +19,9 @@ import org.junit.*;
 import org.junit.runner.RunWith;
 import org.mockito.*;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import businessLogic.BLFacade;
+import businessLogic.BLFacadeImplementation;
 import dataAccess.DataAccess;
 import domain.Event;
 import domain.Sport;
@@ -28,9 +31,11 @@ import domain.Team;
 public class gertaerakSortuMockInt {
 	
 	@InjectMocks
-	DataAccess dataAccess;
+	BLFacadeImplementation fb;
+	
 	@Mock
-	EntityManager  db;
+	DataAccess dataAccess;
+	
 	
 	/*
 	 * Test1 => Comprobar el funcionamiento de db.find(....)
@@ -45,7 +50,7 @@ public class gertaerakSortuMockInt {
 	@Before
 	public void init() {
 		dataAccess  = new DataAccess();
-		
+		fb  = new BLFacadeImplementation(dataAccess);
 		//Parametros
 		description = "description";
 		sport = "sport";
@@ -61,55 +66,17 @@ public class gertaerakSortuMockInt {
 	@Test
 	public void test1() {
 		try {
+			fb.gertaerakSortu(description, eventDate, sport);
 			//configure mock
-			Mockito.doReturn(null).when(db).find(Mockito.any(), Mockito.anyString());
+			Mockito.verify(dataAccess, Mockito.times(1)).open(true);
+			Mockito.verify(dataAccess, Mockito.times(1)).initializeDB();
+			Mockito.verify(dataAccess, Mockito.times(1)).close();
 			//test de prueba
 			assertFalse(dataAccess.gertaerakSortu(description, eventDate, sport));
 			System.out.println("El test de db.find(....) a funcionado");
 			
 		}catch(Exception e) {
 			System.out.println("----------> Fallo test1 MOCKINT: "+e.getMessage());
-		}
-	}
-	
-	@Test
-	public void test2() {
-		try {
-			TypedQuery<Event> Equery = (TypedQuery<Event>) Mockito.mock(TypedQuery.class);
-			List<Event> expected = new ArrayList<>();
-			//configure mock
-			Mockito.doReturn(Equery).when(db).createQuery(Mockito.anyString(), Mockito.any());
-			Mockito.when(Equery.getResultList()).thenReturn(expected);
-			//test de prueba
-			assertFalse(dataAccess.gertaerakSortu(description, eventDate, sport));
-			System.out.println("El test de db.createQuery(....) y getResult() a funcionado");
-			
-		}catch(Exception e) {
-			System.out.println("----------> Fallo test2 MOCKINT: "+e.getMessage());
-		}
-	}
-	
-	@Test
-	public void test3() {
-		try {
-			//Param
-			Sport spo = new Sport();
-			Event Equery = null;
-			
-			//configure mock
-			Mockito.doReturn(spo).when(db).find(Mockito.any(), Mockito.anyString());
-			Mockito.doThrow(new NullPointerException()).when(db).createQuery(Mockito.anyString(), Mockito.any());
-			//Test de prueba
-			boolean result = dataAccess.gertaerakSortu(description, eventDate, sport);
-			//Verificacion de metodo void
-			
-			ArgumentCaptor<Event> eve = ArgumentCaptor.forClass(Event.class);
-			Mockito.verify(db, Mockito.times(1)).persist(eve.capture());
-			assertTrue(result);
-			System.out.println("El test de db.persist(....) a funcionado");
-			
-		}catch(Exception e) {
-			System.out.println("----------> Fallo test3 MOCKINT: "+e.getMessage());
 		}
 	}
 }
