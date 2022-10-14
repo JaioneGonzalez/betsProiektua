@@ -34,30 +34,23 @@ public class gertaerakSortuMockInt {
 	BLFacadeImplementation fb;
 	
 	@Mock
-	DataAccess dataAccess;
+	DataAccess dataAccess = new DataAccess();
 	
 	
 	/*
 	 * Test1 => Comprobar el funcionamiento de db.find(....)
-	 * Test2 => Comprobar el funcionamiento de db.createQuery(....) y getResult()
-	 * Test3 => Comprobar el funcionamiento de db.persist(....)
 	 */
-	String description;
-	String sport;
+	
 	SimpleDateFormat sdf;
 	Date eventDate;
 	
+	
 	@Before
 	public void init() {
-		dataAccess  = new DataAccess();
-		fb  = new BLFacadeImplementation(dataAccess);
-		//Parametros
-		description = "description";
-		sport = "sport";
 		sdf = new SimpleDateFormat("dd/MM/yyyy");
 		eventDate = null;
 		try {
-			eventDate = sdf.parse("05/10/2022");
+			eventDate = sdf.parse("17/11/2022");
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -66,17 +59,18 @@ public class gertaerakSortuMockInt {
 	@Test
 	public void test1() {
 		try {
-			fb.gertaerakSortu(description, eventDate, sport);
+			fb.gertaerakSortu("Atletico-Athletic", eventDate, "deporteQueNoExiste");
 			//configure mock
 			Mockito.verify(dataAccess, Mockito.times(1)).open(true);
 			Mockito.verify(dataAccess, Mockito.times(1)).initializeDB();
-			Mockito.verify(dataAccess, Mockito.times(1)).close();
+			Mockito.verify(dataAccess, Mockito.times(2)).close();
 			//test de prueba
-			assertFalse(dataAccess.gertaerakSortu(description, eventDate, sport));
-			System.out.println("El test de db.find(....) a funcionado");
+			assertFalse(dataAccess.gertaerakSortu("Atletico-Athletic", eventDate, "deporteQueNoExiste"));
+			System.out.println("----------> El test1 de Mockito a funcionado correctamente");
 			
 		}catch(Exception e) {
 			System.out.println("----------> Fallo test1 MOCKINT: "+e.getMessage());
 		}
 	}
+	
 }
