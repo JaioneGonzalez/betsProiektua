@@ -37,7 +37,7 @@ public class gertaerakSortuDAB {
 	public void test1() {
 		try {
 			cambiarFecha("17/11/2022");
-			boolean result = dataAccess.gertaerakSortu("NuevoEvento", eventDate, "deporteQueNoExiste");
+			boolean result = dataAccess.gertaerakSortu("Atletico-Athletic", eventDate, "deporteQueNoExiste");
 			assertFalse(result);
 			System.out.println("----------> El test1 de DAB a funcionado correctamente");
 		}catch (Exception e) {
