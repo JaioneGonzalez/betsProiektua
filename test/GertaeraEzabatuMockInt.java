@@ -1,4 +1,6 @@
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,61 +25,62 @@ public class GertaeraEzabatuMockInt {
 	@InjectMocks
 	BLFacade sut = new BLFacadeImplementation(dataAccess);
 
+	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+	Date eventDate = null;
+	
+	public void cambiarFecha(String fecha) {
+		try {
+			eventDate = sdf.parse(fecha);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
+		
+	// Evento NULL
 	@Test
 	public void test1() {
 		try {
-			// define paramaters
-			String eventText = "event1";
-			String queryText = "query1";
-			Float betMinimum = new Float(2);
-
-			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-			Date oneDate = null;
-			;
-			try {
-				oneDate = sdf.parse("05/10/2022");
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-
-			// configure Mock
-			Mockito.doReturn(oneDate).when(mockedEvent).getEventDate();
-			Mockito.doReturn(new Event()).when(dataAccess).gertaerakSortu(Mockito.anyString(), Mockito.any(Date.class), Mockito.anyString());
-
-			// invoke System Under Test (sut)
-			boolean q = sut.gertaeraEzabatu(mockedEvent);
-
+			Mockito.doReturn(false).when(dataAccess).gertaeraEzabatu(null);
+			boolean result = sut.gertaeraEzabatu(null);
+			assertFalse(result);
+			fail("FAIL");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			assertTrue(true);
+			System.out.println("SUCCESS");
 		}
 	}
-
+	
+	// Evento que aún no ha ocurrido
 	@Test
 	public void test2() {
 		try {
-			// define paramaters
-			String eventText = "event1";
-			String queryText = "query1";
-			Float betMinimum = new Float(2);
-
-			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-			Date oneDate = null;
-			;
-			try {
-				oneDate = sdf.parse("05/10/2022");
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-
-			// configure Mock
-			Event ev = new Event(null, null, null, null, null);
-			// invoke System Under Test (sut)
-			boolean q = sut.gertaeraEzabatu(ev);
-
+			Event ev = new Event();
+			cambiarFecha("21/07/2023");
+			ev.setEventDate(eventDate);
+			Mockito.doReturn(false).when(dataAccess).gertaeraEzabatu(ev);
+			boolean result = sut.gertaeraEzabatu(ev);
+			assertFalse(result);
+			System.out.println("SUCCESS");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			assertTrue(true);
+			fail("FAIL" + e.getMessage());
 		}
 	}
+	
+	// Evento que ya ha ocurrido y tiene públicos todos los resultados
+	@Test
+	public void test3() {
+		try {
+			Event ev = new Event();
+			cambiarFecha("21/07/2022");
+			ev.setEventDate(eventDate);
+			Mockito.doReturn(true).when(dataAccess).gertaeraEzabatu(ev);
+			boolean result = sut.gertaeraEzabatu(ev);
+			assertTrue(result);
+			System.out.println("SUCCESS");
+		} catch (Exception e) {
+			fail("FAIL" + e.getMessage());
+		}
+	}
+	
+	
 }
