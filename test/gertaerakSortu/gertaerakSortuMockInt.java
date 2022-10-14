@@ -1,19 +1,10 @@
 package gertaerakSortu;
 
 import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doCallRealMethod;
-import static org.mockito.Mockito.doThrow;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.function.Consumer;
-
-import javax.persistence.*;
 
 import org.junit.*;
 import org.junit.runner.RunWith;
@@ -23,34 +14,27 @@ import org.mockito.junit.MockitoJUnitRunner;
 import businessLogic.BLFacade;
 import businessLogic.BLFacadeImplementation;
 import dataAccess.DataAccess;
-import domain.Event;
-import domain.Sport;
-import domain.Team;
+import exceptions.EventFinished;
 
 @RunWith(MockitoJUnitRunner.Silent.class)
 public class gertaerakSortuMockInt {
-	
+
+	DataAccess dataAccess = Mockito.mock(DataAccess.class);
 	@InjectMocks
-	BLFacadeImplementation fb;
-	
-	@Mock
-	DataAccess dataAccess = new DataAccess();
-	
+	BLFacade fb = new BLFacadeImplementation(dataAccess);
 	
 	/*
-	 * Test1 => Comprobar el funcionamiento de db.find(....)
+	 * Test1 => Comprobar date == null
+	 * Test2 => Comprobar spo == null
 	 */
 	
-	SimpleDateFormat sdf;
-	Date eventDate;
+	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+	Date eventDate = null;
 	
 	
-	@Before
-	public void init() {
-		sdf = new SimpleDateFormat("dd/MM/yyyy");
-		eventDate = null;
+	public void cambiarFecha(String fecha) {
 		try {
-			eventDate = sdf.parse("17/11/2022");
+			eventDate = sdf.parse(fecha);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -59,17 +43,38 @@ public class gertaerakSortuMockInt {
 	@Test
 	public void test1() {
 		try {
-			fb.gertaerakSortu("Atletico-Athletic", eventDate, "deporteQueNoExiste");
-			//configure mock
-			Mockito.verify(dataAccess, Mockito.times(1)).open(true);
-			Mockito.verify(dataAccess, Mockito.times(1)).initializeDB();
-			Mockito.verify(dataAccess, Mockito.times(2)).close();
-			//test de prueba
-			assertFalse(dataAccess.gertaerakSortu("Atletico-Athletic", eventDate, "deporteQueNoExiste"));
-			System.out.println("----------> El test1 de Mockito a funcionado correctamente");
-			
+			cambiarFecha("17/11/1999");
+			Mockito.doReturn(false).when(dataAccess).gertaerakSortu(" ", eventDate, " ");
+			boolean result = fb.gertaerakSortu(" ", eventDate, " ");
+			assertFalse(result);
+			fail("----------> El test1 de MOCKITO ha fallado");
 		}catch(Exception e) {
-			System.out.println("----------> Fallo test1 MOCKINT: "+e.getMessage());
+			System.out.println("----------> El test1 de MOCKITO a funcionado correctamente");
+		}
+	}
+	
+	@Test
+	public void test2() {
+		try {
+			cambiarFecha("17/11/2022");
+			Mockito.doReturn(false).when(dataAccess).gertaerakSortu(" ", eventDate, "PingPong");
+			boolean result = fb.gertaerakSortu(" ", eventDate, "PingPong");
+			assertFalse(result);
+			System.out.println("----------> El test2 de MOCKITO a funcionado correctamente");
+		}catch(Exception e) {
+			fail("----------> El test2 de MOCKITO a funcionado correctamente");
+		}
+	}
+	@Test
+	public void test3() {
+		try {
+			cambiarFecha("17/11/2022");
+			Mockito.doReturn(false).when(dataAccess).gertaerakSortu(" ", eventDate, "PingPong");
+			boolean result = fb.gertaerakSortu(" ", eventDate, "PingPong");
+			assertFalse(result);
+			System.out.println("----------> El test3 de MOCKITO a funcionado correctamente");
+		}catch(Exception e) {
+			fail("----------> El test3 de MOCKITO a funcionado correctamente");
 		}
 	}
 	
