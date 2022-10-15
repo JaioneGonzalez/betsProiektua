@@ -32,9 +32,9 @@ public class gertaeraEzabatuDAB {
 	@Test
 	public void test1() {
 		try {
-			testDA.open();
+			dataAccess.open(true);
 			sut.gertaeraEzabatu(null);
-			testDA.close();
+			dataAccess.close();
 			fail("FAIL");
 		} catch (Exception e) {
 			System.out.println("SUCCESS");
@@ -49,10 +49,10 @@ public class gertaeraEzabatuDAB {
 			Team t2 = new Team("t2");
 			cambiarFecha("21/07/2023");
 
-			testDA.open();
+			dataAccess.open(true);
 			Event ev1 = testDA.addEventWithQuestion(32, " ", eventDate, " ", 0, t1, t2);
 			boolean result = sut.gertaeraEzabatu(ev1);
-			testDA.close();
+			dataAccess.close();
 
 			assertFalse(result);
 			System.out.println("SUCCESS");
@@ -69,10 +69,12 @@ public class gertaeraEzabatuDAB {
 			Team t4 = new Team("t4");
 			cambiarFecha("21/07/2022");
 	
+			dataAccess.open(true);
 			testDA.open();
 			Event ev2 = testDA.addEventWithQuestion(35, " ", eventDate, " ", 1, t3, t4);
 			boolean result = sut.gertaeraEzabatu(ev2);
 			testDA.close();
+			dataAccess.close();
 			
 			assertTrue(result);
 			System.out.println("SUCCESS");
