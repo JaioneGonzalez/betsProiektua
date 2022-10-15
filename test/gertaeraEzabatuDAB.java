@@ -5,19 +5,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.junit.Test;
-import org.mockito.Mockito;
-
 import dataAccess.DataAccess;
 import domain.Event;
-import domain.Quote;
 import domain.Team;
 import test.dataAccess.TestDataAccess;
 
 public class gertaeraEzabatuDAB {
 	// sut:system under test
 	static DataAccess sut = new DataAccess();
-
-	private Event ev;
 
 	static DataAccess dataAccess = new DataAccess();
 	static TestDataAccess testDA = new TestDataAccess();
