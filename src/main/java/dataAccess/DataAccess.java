@@ -836,7 +836,6 @@ public void open(boolean initializeMode){
 	public boolean ApustuaEgin(ApustuaEginParameter parameterObject) {
 		Integer apustuBikoitzaGalarazi = parameterObject.apustuBikoitzaGalarazi;
 		Registered user = (Registered) db.find(Registered.class, parameterObject.u.getUsername());
-		Boolean b;
 		if(user.getDirukop()>=parameterObject.balioa) {
 			db.getTransaction().begin();
 			ApustuAnitza apustuAnitza = new ApustuAnitza(user, parameterObject.balioa);
@@ -862,32 +861,26 @@ public void open(boolean initializeMode){
 				Quote q = db.find(Quote.class, apu.getKuota().getQuoteNumber());
 				Sport spo =q.getQuestion().getEvent().getSport();
 				spo.setApustuKantitatea(spo.getApustuKantitatea()+1);
-				
 			}
 			user.addTransaction(t);
 			db.persist(t);
 			db.getTransaction().commit();
 			for(Jarraitzailea reg:user.getJarraitzaileLista()) {
 				Jarraitzailea erab=db.find(Jarraitzailea.class, reg.getJarraitzaileaNumber());
-				b=true;
 				for(ApustuAnitza apu: erab.getNork().getApustuAnitzak()) {
 					if(apu.getApustuKopia().equals(apustuAnitza.getApustuKopia())) {
-						b=false;
-					}//
-				}
-				if(b) {
-					if(erab.getNork().getDiruLimitea()<parameterObject.balioa) {
-						this.ApustuaEgin(new ApustuaEginParameter(erab.getNork(), parameterObject.quote, erab.getNork().getDiruLimitea(), apustuBikoitzaGalarazi));
-					}else{
-						this.ApustuaEgin(new ApustuaEginParameter(erab.getNork(), parameterObject.quote, parameterObject.balioa, apustuBikoitzaGalarazi));
+						return true;
 					}
 				}
+				ApustuaEginParameter apustua = new ApustuaEginParameter(erab.getNork(), parameterObject.quote, parameterObject.balioa, apustuBikoitzaGalarazi);
+				if(erab.getNork().getDiruLimitea()<parameterObject.balioa) {
+					apustua.balioa = erab.getNork().getDiruLimitea();
+				}
+				this.ApustuaEgin(apustua);
 			}
 			return true; 
-		}else{
-			return false; 
 		}
-		
+		return false;
 	}
 	
 	public void apustuaEzabatu(Registered user1, ApustuAnitza ap) {
