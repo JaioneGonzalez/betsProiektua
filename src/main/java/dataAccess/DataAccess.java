@@ -364,19 +364,19 @@ public class DataAccess  {
 			
 			
 			
+			String a = "ApustuaEgin";
 			
-			
-			Transaction t1 = new Transaction(reg1, apA1.getBalioa(), new Date(), "ApustuaEgin");
-			Transaction t3 = new Transaction(reg2, apA4.getBalioa(), new Date(), "ApustuaEgin");
-			Transaction t4 = new Transaction(reg3, apA5.getBalioa(), new Date(), "ApustuaEgin");
-			Transaction t5 = new Transaction(reg4, apA3.getBalioa(), new Date(), "ApustuaEgin");
-			Transaction t6 = new Transaction(reg4, apA6.getBalioa(), new Date(), "ApustuaEgin");
-			Transaction t7 = new Transaction(reg1, apA7.getBalioa(), new Date(), "ApustuaEgin");
-			Transaction t8 = new Transaction(reg1, apA8.getBalioa(), new Date(), "ApustuaEgin");
-			Transaction t9 = new Transaction(reg2, apA9.getBalioa(), new Date(), "ApustuaEgin");
-			Transaction t10 = new Transaction(reg2, apA10.getBalioa(), new Date(), "ApustuaEgin");
-			Transaction t11 = new Transaction(reg3, apA11.getBalioa(), new Date(), "ApustuaEgin");
-			Transaction t12 = new Transaction(reg3, apA12.getBalioa(), new Date(), "ApustuaEgin");
+			Transaction t1 = new Transaction(reg1, apA1.getBalioa(), new Date(), a);
+			Transaction t3 = new Transaction(reg2, apA4.getBalioa(), new Date(), a);
+			Transaction t4 = new Transaction(reg3, apA5.getBalioa(), new Date(), a);
+			Transaction t5 = new Transaction(reg4, apA3.getBalioa(), new Date(), a);
+			Transaction t6 = new Transaction(reg4, apA6.getBalioa(), new Date(), a);
+			Transaction t7 = new Transaction(reg1, apA7.getBalioa(), new Date(), a);
+			Transaction t8 = new Transaction(reg1, apA8.getBalioa(), new Date(), a);
+			Transaction t9 = new Transaction(reg2, apA9.getBalioa(), new Date(), a);
+			Transaction t10 = new Transaction(reg2, apA10.getBalioa(), new Date(), a);
+			Transaction t11 = new Transaction(reg3, apA11.getBalioa(), new Date(), a);
+			Transaction t12 = new Transaction(reg3, apA12.getBalioa(), new Date(), a);
 			
 			reg1.addTransaction(t1);
 			reg2.addTransaction(t3);
@@ -749,7 +749,7 @@ public void open(boolean initializeMode){
 		return b;
 	}
 	
-	public void gsLaguntzaile(String description,Date eventDate, String sport, Sport spo) {
+	public void gsLaguntzaile(String description, Date eventDate, String sport, Sport spo) {
 		String[] taldeak = description.split("-");
 		Team lokala = new Team(taldeak[0]);
 		Team kanpokoa = new Team(taldeak[1]);
