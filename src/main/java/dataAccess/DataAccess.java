@@ -1055,34 +1055,40 @@ public void open(boolean initializeMode){
 		Boolean b=false;
 		Event gertaera = db.find(Event.class, e.getEventNumber());
 		db.getTransaction().begin();
-		
-		
 		TypedQuery<Event> query = db.createQuery("SELECT ev FROM Event ev WHERE ev.getDescription()=?1 and ev.getEventDate()=?2",Event.class);   
 		query.setParameter(1,gertaera.getDescription());
 		query.setParameter(2, date);
 		if(query.getResultList().isEmpty()) {
-			b=true;
-			String[] taldeak = gertaera.getDescription().split("-");
-			Team lokala = new Team(taldeak[0]);
-			Team kanpokoa = new Team(taldeak[1]);
-			Event gertKopiatu = new Event(gertaera.getDescription(), date, lokala, kanpokoa);
-			gertKopiatu.setSport(gertaera.getSport());
-			gertaera.getSport().addEvent(gertKopiatu);
-			db.persist(gertKopiatu);
-				for(Question q : gertaera.getQuestions()) {
-					Question que= new Question(q.getQuestion(), q.getBetMinimum(), gertKopiatu);
-					gertKopiatu.listaraGehitu(que);
-					Question galdera = db.find(Question.class, q.getQuestionNumber());
-					db.persist(que);
-					for(Quote k: galdera.getQuotes()) {
-						Quote kuo= new Quote(k.getQuote(), k.getForecast(), que);
-						que.listaraGehitu(kuo);
-						db.persist(kuo);
-					}
-				}
+			b = gertaerakKopiatu2(gertaera, date);
 		}
 		db.getTransaction().commit();
 		return b;
+	}
+	public boolean gertaerakKopiatu2(Event gertaera, Date date) {
+		String[] taldeak = gertaera.getDescription().split("-");
+		Team lokala = new Team(taldeak[0]);
+		Team kanpokoa = new Team(taldeak[1]);
+		Event gertKopiatu = new Event(gertaera.getDescription(), date, lokala, kanpokoa);
+		gertKopiatu.setSport(gertaera.getSport());
+		gertaera.getSport().addEvent(gertKopiatu);
+		db.persist(gertKopiatu);
+		
+			gertaerakKopiatu3(gertaera, gertKopiatu);
+		return true;
+	}
+	
+	public void gertaerakKopiatu3(Event gertaera, Event gertKopiatu) {
+		for(Question q : gertaera.getQuestions()) {
+			Question que= new Question(q.getQuestion(), q.getBetMinimum(), gertKopiatu);
+			gertKopiatu.listaraGehitu(que);
+			Question galdera = db.find(Question.class, q.getQuestionNumber());
+			db.persist(que);
+			for(Quote k: galdera.getQuotes()) {
+				Quote kuo= new Quote(k.getQuote(), k.getForecast(), que);
+				que.listaraGehitu(kuo);
+				db.persist(kuo);
+			}
+		}
 	}
 	
 	public boolean jarraitu(Registered jabea, Registered jarraitua, Double limit) {
