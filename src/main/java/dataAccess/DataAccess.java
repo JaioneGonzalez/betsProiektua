@@ -833,14 +833,15 @@ public void open(boolean initializeMode){
 		db.getTransaction().commit();
 	}
 	
-	public boolean ApustuaEgin(Registered u, Vector<Quote> quote, Double balioa, Integer apustuBikoitzaGalarazi) {
-		Registered user = (Registered) db.find(Registered.class, u.getUsername());
+	public boolean ApustuaEgin(ApustuaEginParameter parameterObject) {
+		Integer apustuBikoitzaGalarazi = parameterObject.apustuBikoitzaGalarazi;
+		Registered user = (Registered) db.find(Registered.class, parameterObject.u.getUsername());
 		Boolean b;
-		if(user.getDirukop()>=balioa) {
+		if(user.getDirukop()>=parameterObject.balioa) {
 			db.getTransaction().begin();
-			ApustuAnitza apustuAnitza = new ApustuAnitza(user, balioa);
+			ApustuAnitza apustuAnitza = new ApustuAnitza(user, parameterObject.balioa);
 			db.persist(apustuAnitza);
-			for(Quote quo: quote) {
+			for(Quote quo: parameterObject.quote) {
 				Quote kuote = db.find(Quote.class, quo.getQuoteNumber());
 				Apustua ap = new Apustua(apustuAnitza, kuote);
 				db.persist(ap);
@@ -854,8 +855,8 @@ public void open(boolean initializeMode){
 				apustuBikoitzaGalarazi=apustuAnitza.getApustuAnitzaNumber();
 			}
 			apustuAnitza.setApustuKopia(apustuBikoitzaGalarazi);
-			user.updateDiruKontua(-balioa);
-			Transaction t = new Transaction(user, balioa, new Date(), "ApustuaEgin"); 
+			user.updateDiruKontua(-parameterObject.balioa);
+			Transaction t = new Transaction(user, parameterObject.balioa, new Date(), "ApustuaEgin"); 
 			user.addApustuAnitza(apustuAnitza);
 			for(Apustua a: apustuAnitza.getApustuak()) {
 				Apustua apu = db.find(Apustua.class, a.getApostuaNumber());
@@ -876,10 +877,10 @@ public void open(boolean initializeMode){
 					}//
 				}
 				if(b) {
-					if(erab.getNork().getDiruLimitea()<balioa) {
-						this.ApustuaEgin(erab.getNork(), quote, erab.getNork().getDiruLimitea(), apustuBikoitzaGalarazi);
+					if(erab.getNork().getDiruLimitea()<parameterObject.balioa) {
+						this.ApustuaEgin(new ApustuaEginParameter(erab.getNork(), parameterObject.quote, erab.getNork().getDiruLimitea(), apustuBikoitzaGalarazi));
 					}else{
-						this.ApustuaEgin(erab.getNork(), quote, balioa, apustuBikoitzaGalarazi);
+						this.ApustuaEgin(new ApustuaEginParameter(erab.getNork(), parameterObject.quote, parameterObject.balioa, apustuBikoitzaGalarazi));
 					}
 				}
 			}

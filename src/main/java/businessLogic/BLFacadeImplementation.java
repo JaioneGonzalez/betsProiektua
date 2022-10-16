@@ -10,6 +10,7 @@ import javax.jws.WebMethod;
 import javax.jws.WebService;
 
 import configuration.ConfigXML;
+import dataAccess.ApustuaEginParameter;
 import dataAccess.DataAccess;
 import dataAccess.DiruaSartuParameter;
 import domain.ApustuAnitza;
@@ -198,7 +199,7 @@ public class BLFacadeImplementation  implements BLFacade {
     @WebMethod	
     public boolean ApustuaEgin(Registered u, Vector<Quote> q, Double balioa, Integer apustuaGalarazi) {
     	dbManager.open(false);
-    	boolean b = dbManager.ApustuaEgin(u, q, balioa, apustuaGalarazi);
+    	boolean b = dbManager.ApustuaEgin(new ApustuaEginParameter(u, q, balioa, apustuaGalarazi));
     	dbManager.close();
     	return b; 
     }
