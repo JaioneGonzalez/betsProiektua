@@ -17,15 +17,11 @@ import test.dataAccess.TestDataAccess;
 
 public class gertaerakSortuDAB {
 	
-	DataAccess dataAccess = new DataAccess();
-	Event ev;
-	Date eventDate;
+	static DataAccess dataAccess = new DataAccess();
+	static TestDataAccess testDA = new TestDataAccess();
+	Date eventDate = null;
+	
 	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-	/*
-	 * Test1 => Comprobar spo == null
-	 * Test2 => Comprobar event concuerde con la descripcion
-	 * Test3 => Comprobar event sea completamente nuevo y haya que anadirlo
-	 */
 	public void cambiarFecha(String fecha) {
 		try {
 			eventDate = sdf.parse(fecha);
@@ -33,44 +29,48 @@ public class gertaerakSortuDAB {
 			e.printStackTrace();
 		}
 	}
-	@Test
-	public void test1() {
+	/*@Test
+	public void test1(){
+		// Test con evento nulo deberia de devolver excepcion
 		try {
-			cambiarFecha("17/11/2022");
-			boolean result = dataAccess.gertaerakSortu("Atletico-Athletic", eventDate, "deporteQueNoExiste");
-			assertFalse(result);
+			boolean result = dataAccess.gertaerakSortu("", null, "");
+			fail("----------> El test1 de DAB ha fallado");
+		} 
+		catch (Exception e) {
+			// TODO: handle exception
 			System.out.println("----------> El test1 de DAB a funcionado correctamente");
-		}catch (Exception e) {
-			System.out.println("----------> Fallo test1 DAB: "+e.getMessage());
-		}finally{
-			dataAccess.close();
 		}
 	}
-	
 	@Test
-	public void test2() {
+	public void test2(){
 		try {
+			// Test con deporte que no existe deberia devolver false
 			cambiarFecha("17/11/2022");
-			boolean result = dataAccess.gertaerakSortu("Atletico-Athletic", eventDate, "Futbol");
+			dataAccess.open(true);
+			boolean result = dataAccess.gertaerakSortu("", eventDate, "DeportQueNoExiste");
 			assertFalse(result);
+			dataAccess.close();
 			System.out.println("----------> El test2 de DAB a funcionado correctamente");
-		}catch (Exception e) {
-			System.out.println("----------> Fallo test2 DAB: "+e.getMessage());
-		}finally{
-			dataAccess.close();
+		} 
+		catch (Exception e) {
+			// TODO: handle exception
+			fail("----------> El test2 de DAB ha fallado: "+e.getMessage());
 		}
-	}
+	}*/
 	@Test
-	public void test3() {
+	public void test3(){
 		try {
-			cambiarFecha("20/05/2023");
-			boolean result = dataAccess.gertaerakSortu("Atletico-Athletic", eventDate, "Futbol");
+			// Test con desporte disponible pero sin eventos deberia devolver true y añadirlo
+			cambiarFecha("17/11/2022");
+			dataAccess.open(true);
+			boolean result = dataAccess.gertaerakSortu("EventoQueNoExiste", eventDate, "Futbol");
 			assertTrue(result);
-			System.out.println("----------> El test3 de DAB a funcionado correctamente");
-		}catch (Exception e) {
-			System.out.println("----------> Fallo test3 DAB: "+e.getMessage());
-		}finally{
 			dataAccess.close();
+			System.out.println("----------> El test3 de DAB a funcionado correctamente");
+		} 
+		catch (Exception e) {
+			// TODO: handle exception
+			fail("----------> El test3 de DAB ha fallado: "+e.getMessage());
 		}
 	}
 }
