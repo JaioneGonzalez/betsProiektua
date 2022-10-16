@@ -847,7 +847,6 @@ public void open(boolean initializeMode){
 				db.persist(ap);
 				apustuAnitza.addApustua(ap);
 				kuote.addApustua(ap);
-				
 			}
 			db.getTransaction().commit();
 			db.getTransaction().begin();
@@ -991,17 +990,14 @@ public void open(boolean initializeMode){
 	
 	public boolean gertaeraEzabatu(Event ev) {
 		Event event  = db.find(Event.class, ev); 
-		boolean resultB = true; 
 		List<Question> listQ = event.getQuestions(); 
 		
 		for(Question q : listQ) {
 			if(q.getResult() == null) {
-				resultB = false; 
+				return false;
 			}
 		}
-		if(resultB == false) {
-			return false;
-		}else if(new Date().compareTo(event.getEventDate())<0) {
+		if(new Date().compareTo(event.getEventDate())<0) {
 			TypedQuery<Quote> Qquery = db.createQuery("SELECT q FROM Quote q WHERE q.getQuestion().getEvent().getEventNumber() =?1", Quote.class);
 			Qquery.setParameter(1, event.getEventNumber()); 
 			List<Quote> listQUO = Qquery.getResultList();
@@ -1015,7 +1011,7 @@ public void open(boolean initializeMode){
 					db.getTransaction().commit();
 					if(ap1.getApustuak().isEmpty() && !ap1.getEgoera().equals("galduta")) {
 						this.apustuaEzabatu(ap1.getUser(), ap1);
-					}else if(!ap1.getApustuak().isEmpty() && ap1.irabazitaMarkatu()){
+					}else if(ap1.irabazitaMarkatu()){
 						this.ApustuaIrabazi(ap1);
 					}
 					db.getTransaction().begin();
