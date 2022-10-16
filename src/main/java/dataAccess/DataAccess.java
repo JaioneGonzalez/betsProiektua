@@ -592,12 +592,11 @@ public class DataAccess  {
 			
 			db.getTransaction().commit();
 			
-			String s ="DiruaSartu";
-			//
-			this.DiruaSartu(reg1, 50.0, new Date(), s);
-			this.DiruaSartu(reg2, 50.0, new Date(), s);
-			this.DiruaSartu(reg3, 50.0, new Date(), s);
-			this.DiruaSartu(reg4, 50.0, new Date(), s);
+			
+			this.DiruaSartu(reg1, 50.0, new Date(), "DiruaSartu");
+			this.DiruaSartu(reg2, 50.0, new Date(), "DiruaSartu");
+			this.DiruaSartu(reg3, 50.0, new Date(), "DiruaSartu");
+			this.DiruaSartu(reg4, 50.0, new Date(), "DiruaSartu");
 			
 			System.out.println("Db initialized");
 		}
@@ -940,6 +939,18 @@ public void open(boolean initializeMode){
 		db.getTransaction().commit();
 	}
 	
+	public void IrabazitakoApustuakMarkatu(Quote q){
+		Vector<Apustua> listApustuak = q.getApustuak();
+		for(Apustua a : listApustuak) {
+			db.getTransaction().begin();
+			Boolean bool=a.getApustuAnitza().irabazitaMarkatu();
+			db.getTransaction().commit();
+			if(bool) {
+				this.ApustuaIrabazi(a.getApustuAnitza());
+			}
+		}
+	}
+	
 	public void EmaitzakIpini(Quote quote) throws EventNotFinished{
 		
 		Quote q = db.find(Quote.class, quote); 
@@ -948,7 +959,7 @@ public void open(boolean initializeMode){
 		if(new Date().compareTo(q.getQuestion().getEvent().getEventDate())<0)
 			throw new EventNotFinished();
 
-		Vector<Apustua> listApustuak = q.getApustuak();
+		
 		db.getTransaction().begin();
 		Question que = q.getQuestion(); 
 		Question question = db.find(Question.class, que); 
@@ -965,14 +976,7 @@ public void open(boolean initializeMode){
 			}
 		}
 		db.getTransaction().commit();
-		for(Apustua a : listApustuak) {
-			db.getTransaction().begin();
-			Boolean bool=a.getApustuAnitza().irabazitaMarkatu();
-			db.getTransaction().commit();
-			if(bool) {
-				this.ApustuaIrabazi(a.getApustuAnitza());
-			}
-		}
+		IrabazitakoApustuakMarkatu(q);
 	}
 	
 	public boolean gertaeraEzabatu(Event ev) {

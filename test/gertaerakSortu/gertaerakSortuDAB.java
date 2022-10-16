@@ -27,7 +27,8 @@ public class gertaerakSortuDAB {
 			eventDate = sdf.parse(fecha);
 		} catch (ParseException e) {
 			e.printStackTrace();
-		}
+		}  
+		
 	}
 	/*@Test
 	public void test1(){
