@@ -593,7 +593,7 @@ public class DataAccess  {
 			db.getTransaction().commit();
 			
 			String s ="DiruaSartu";
-			
+			//
 			this.DiruaSartu(reg1, 50.0, new Date(), s);
 			this.DiruaSartu(reg2, 50.0, new Date(), s);
 			this.DiruaSartu(reg3, 50.0, new Date(), s);
