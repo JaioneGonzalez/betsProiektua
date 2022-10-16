@@ -745,7 +745,7 @@ public void open(boolean initializeMode){
 				}
 			}
 			if(b) {
-				gsLaguntzaile(description, eventDate, sport, spo);
+				gsLaguntzaile(description, eventDate, spo);
 			}
 		}else {
 			return false;
@@ -754,7 +754,7 @@ public void open(boolean initializeMode){
 		return b;
 	}
 	
-	public void gsLaguntzaile(String description, Date eventDate, String sport, Sport spo) {
+	public void gsLaguntzaile(String description, Date eventDate, Sport spo) {
 		String[] taldeak = description.split("-");
 		Team lokala = new Team(taldeak[0]);
 		Team kanpokoa = new Team(taldeak[1]);
@@ -1104,10 +1104,10 @@ public void open(boolean initializeMode){
 		}
 	}
 	
-	public boolean jarraitu(Registered jabea, Registered jarraitua, Double limit) {
+	public boolean jarraitu(JarraituParameter parameterObject) {
 		Boolean b=false;
-		Registered jarraitu = (Registered) db.find(Registered.class, jarraitua.getUsername());
-		Registered harpideduna = (Registered) db.find(Registered.class, jabea.getUsername());
+		Registered jarraitu = (Registered) db.find(Registered.class, parameterObject.jarraitua.getUsername());
+		Registered harpideduna = (Registered) db.find(Registered.class, parameterObject.jabea.getUsername());
 		if(!harpideduna.getJarraitutakoLista().contains(jarraitu)) {
 			db.getTransaction().begin();
 			Jarraitzailea jar = new Jarraitzailea(harpideduna, jarraitu);
@@ -1115,7 +1115,7 @@ public void open(boolean initializeMode){
 			jarraitu.addJarraitzailea(jar);
 			b=true;
 			db.persist(jar);
-			harpideduna.setDiruLimitea(limit);
+			harpideduna.setDiruLimitea(parameterObject.limit);
 			db.getTransaction().commit();
 		}
 		return b;
