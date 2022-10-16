@@ -24,13 +24,11 @@ public class gertaeraEzabatuDAW {
 	@Test
 	public void test1() {
 		try {
-			// define paramaters
+			// define parameters
 			String eventText = "event1";
 			String queryText = "query1";
-
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 			Date oneDate = null;
-
 			try {
 				oneDate = sdf.parse("01/10/2022");
 			} catch (ParseException e) {
@@ -52,9 +50,10 @@ public class gertaeraEzabatuDAW {
 			// fail();
 			assertTrue(true);
 		} finally {
-			System.out.println("Event deleted");
+			System.out.println("Event deleted");
+
 		}
+
 	}
 
-	
 }
