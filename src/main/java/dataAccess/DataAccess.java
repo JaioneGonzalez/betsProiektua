@@ -598,10 +598,10 @@ public class DataAccess  {
 			db.getTransaction().commit();
 			
 			String s = "DiruaSartu";
-			this.DiruaSartu(reg1, 50.0, new Date(), s);
-			this.DiruaSartu(reg2, 50.0, new Date(), s);
-			this.DiruaSartu(reg3, 50.0, new Date(), s);
-			this.DiruaSartu(reg4, 50.0, new Date(), s);
+			this.DiruaSartu(new DiruaSartuParameter(reg1, 50.0, new Date(), s));
+			this.DiruaSartu(new DiruaSartuParameter(reg2, 50.0, new Date(), s));
+			this.DiruaSartu(new DiruaSartuParameter(reg3, 50.0, new Date(), s));
+			this.DiruaSartu(new DiruaSartuParameter(reg4, 50.0, new Date(), s));
 			
 			System.out.println("Db initialized");
 		}
@@ -822,13 +822,13 @@ public void open(boolean initializeMode){
 		return Qquery.getResultList();
 	}
 	
-	public void DiruaSartu(Registered u, Double dirua, Date data, String mota) {
-		Registered user = (Registered) db.find(Registered.class, u.getUsername()); 
+	public void DiruaSartu(DiruaSartuParameter parameterObject) {
+		Registered user = (Registered) db.find(Registered.class, parameterObject.u.getUsername()); 
 		db.getTransaction().begin();
-		Transaction t = new Transaction(user, dirua, data, mota); 
+		Transaction t = new Transaction(user, parameterObject.dirua, parameterObject.data, parameterObject.mota); 
 		System.out.println(t.getMota());
 		user.addTransaction(t);
-		user.updateDiruKontua(dirua);
+		user.updateDiruKontua(parameterObject.dirua);
 		db.persist(t);
 		db.getTransaction().commit();
 	}

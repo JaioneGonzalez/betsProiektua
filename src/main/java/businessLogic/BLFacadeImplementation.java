@@ -11,6 +11,7 @@ import javax.jws.WebService;
 
 import configuration.ConfigXML;
 import dataAccess.DataAccess;
+import dataAccess.DiruaSartuParameter;
 import domain.ApustuAnitza;
 import domain.Apustua;
 import domain.Event;
@@ -191,7 +192,7 @@ public class BLFacadeImplementation  implements BLFacade {
     public void DiruaSartu(Registered u, Double dirua, String mota) {
     	Date data = new Date();
     	dbManager.open(false); 
-    	dbManager.DiruaSartu(u, dirua, data, mota);
+    	dbManager.DiruaSartu(new DiruaSartuParameter(u, dirua, data, mota));
     	dbManager.close();
     }
     @WebMethod	
