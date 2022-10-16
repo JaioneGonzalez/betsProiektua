@@ -1054,7 +1054,6 @@ public void open(boolean initializeMode){
 	}
 	
 	
-	
 	public boolean gertaerakKopiatu(Event e, Date date) {
 		Boolean b=false;
 		Event gertaera = db.find(Event.class, e.getEventNumber());
@@ -1152,6 +1151,7 @@ public void open(boolean initializeMode){
 		team.addUser(r);
 		db.getTransaction().commit();
 	}
+	
 	
 	public Registered findUser(Registered user){
 		return db.find(Registered.class, user.getUsername());
