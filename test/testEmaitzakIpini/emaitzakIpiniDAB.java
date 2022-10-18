@@ -62,14 +62,15 @@ public class emaitzakIpiniDAB {
 
 			Question question = new Question(2,"", 0.3, event);
 			Quote quote = new Quote(3.0, "equipo no existente", question);
+			testDA.open();
+			testDA.EmaitzakIpini(quote);
+			testDA.close();
+			fail("El test 2 ha fallado");
 			
-			ArgumentCaptor<Quote> quoteCaptor = ArgumentCaptor.forClass(Quote.class);
-			
-			System.out.println("El test 2 ha funcionado como deberia");
 		
 			
 		}catch(Exception e) {
-			fail("El test 2 ha fallado: " + e.getMessage());
+			System.out.println("El test 2 ha funcionado como deberia");
 		}
 	}
 	@Test
@@ -86,14 +87,14 @@ public class emaitzakIpiniDAB {
 
 			Question question = new Question(2,"", 0.3, event);
 			Quote quote = new Quote(3.0, "team1", question);
-			
-			ArgumentCaptor<Quote> quoteCaptor = ArgumentCaptor.forClass(Quote.class);
-			
-			System.out.println("El test 3 ha funcionado como deberia");
-		
+			testDA.open();
+			testDA.addQuote(quote);
+			testDA.EmaitzakIpini(quote);
+			testDA.close();
+			fail("El test 3 ha fallado");
 			
 		}catch(Exception e) {
-			fail("El test 3 ha fallado: " + e.getMessage());
+			System.out.println("El test 3 ha funcionado como deberia");
 		}
 	}
 	@Test
@@ -109,15 +110,20 @@ public class emaitzakIpiniDAB {
 			Event event = new Event("description",eventDate, team1, team2);
 
 			Question question = new Question(2,"", 0.3, event);
-			Quote quote = new Quote(3.0, "team1", question);
 			
-			ArgumentCaptor<Quote> quoteCaptor = ArgumentCaptor.forClass(Quote.class);
+			Quote quote = question.addQuote(1.3, "1", question);
 			
+			testDA.open();
+			
+			testDA.EmaitzakIpini(quote);
+			testDA.close();
 			System.out.println("El test 4 ha funcionado como deberia");
 		
 			
 		}catch(Exception e) {
-			fail("El test 4 ha fallado: " + e.getMessage());
+			System.out.println(e.getMessage());
+			fail("El test 4 ha fallado" + e.getMessage());
+			
 		}
 	}
 }
