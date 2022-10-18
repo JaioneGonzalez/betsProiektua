@@ -65,17 +65,16 @@ public class gertaeraEzabatuDAB {
 	@Test
 	public void test3() {
 		try {
-			Team t3 = new Team("t3");
-			Team t4 = new Team("t4");
+			Team t1 = new Team("t1");
+			Team t2 = new Team("t2");
 			cambiarFecha("21/07/2022");
-	
-			dataAccess.open(true);
-			testDA.open();
-			Event ev2 = testDA.addEventWithQuestion(35, " ", eventDate, " ", 1, t3, t4);
-			boolean result = sut.gertaeraEzabatu(ev2);
-			testDA.close();
-			dataAccess.close();
-			
+
+			sut.open(true);
+			Event ev1 = testDA.addEventWithQuestion(32, " ", eventDate, " ", 0, t1, t2);
+			ev1.getQuestions().get(0).setResult(" ");
+			boolean result = sut.gertaeraEzabatu(ev1);
+			sut.close();
+
 			assertTrue(result);
 			System.out.println("SUCCESS");
 		} catch (Exception e) {
