@@ -270,6 +270,7 @@ public class TestDataAccess {
 		spo.addEvent(e);
 		db.persist(e);
 	}
+	
 	public void cargarEventoYdeporte() {
 		try {
 			Calendar today = Calendar.getInstance();
