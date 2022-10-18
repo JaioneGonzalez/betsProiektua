@@ -35,7 +35,6 @@ public class GertaeraEzabatuMockInt {
 			e.printStackTrace();
 		}
 	}
-	
 		
 	// Evento NULL
 	@Test
@@ -44,9 +43,9 @@ public class GertaeraEzabatuMockInt {
 			Mockito.doReturn(false).when(dataAccess).gertaeraEzabatu(null);
 			boolean result = sut.gertaeraEzabatu(null);
 			assertFalse(result);
-			fail("FAIL");
-		} catch (Exception e) {
 			System.out.println("SUCCESS");
+		} catch (Exception e) {
+			System.out.println("FAIL");
 		}
 	}
 	

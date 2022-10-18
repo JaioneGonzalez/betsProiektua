@@ -982,6 +982,7 @@ public void open(boolean initializeMode){
 	}
 	
 	public boolean gertaeraEzabatu(Event ev) {
+		if (ev==null) return false;
 		Event event  = db.find(Event.class, ev); 
 		List<Question> listQ = event.getQuestions(); 
 		

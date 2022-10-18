@@ -33,11 +33,12 @@ public class gertaeraEzabatuDAB {
 	public void test1() {
 		try {
 			dataAccess.open(true);
-			sut.gertaeraEzabatu(null);
+			boolean result = sut.gertaeraEzabatu(null);
 			dataAccess.close();
-			fail("FAIL");
-		} catch (Exception e) {
+			assertFalse(result);
 			System.out.println("SUCCESS");
+		} catch (Exception e) {
+			System.out.println("FAIL");
 		}
 	}
 
