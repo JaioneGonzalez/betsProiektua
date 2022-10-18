@@ -45,7 +45,7 @@ public class emaitzakIpiniDAB {
 		
 		try {
 			
-			
+			testDA.Clear();
 			testDA.EmaitzakIpini(null);
 			fail("El metodo ha funcionado cuando no deberia");
 			
@@ -60,6 +60,7 @@ public class emaitzakIpiniDAB {
 	public void test2() {
 		
 		try {
+			testDA.Clear();
 			Calendar today = Calendar.getInstance();
 			   
 			int month=today.get(Calendar.MONTH);
@@ -97,7 +98,7 @@ public class emaitzakIpiniDAB {
 		}catch(Exception e) {
 			System.out.println("El test 2 ha funcionado como deberia");
 		}finally{
-			
+			testDA.Clear();
 		}
 	}
 	@Test
@@ -105,6 +106,8 @@ public class emaitzakIpiniDAB {
 	public void test3() {
 		
 		try {
+			testDA.Clear();
+			testDA.initializeDB();
 			Calendar today = Calendar.getInstance();
 			   
 			int month=today.get(Calendar.MONTH);
@@ -131,8 +134,6 @@ public class emaitzakIpiniDAB {
 			Transaction t1 = new Transaction(reg1, apA1.getBalioa(), new Date(), a);
 			reg1.addTransaction(t1);
 			team1.addEvent(ev1);
-			
-			
 			
 			testDA.EmaitzakIpini(quote1);
 			
@@ -140,6 +141,8 @@ public class emaitzakIpiniDAB {
 			
 		}catch(Exception e) {
 			System.out.println("El test 3 ha funcionado como deberia");
+		}finally{
+			testDA.Clear();
 		}
 	}
 	@Test
@@ -147,6 +150,8 @@ public class emaitzakIpiniDAB {
 	public void test4() {
 		
 		try {
+			testDA.Clear();
+			testDA.initializeDB();
 			Calendar today = Calendar.getInstance();
 			   
 			int month=today.get(Calendar.MONTH);
@@ -174,10 +179,8 @@ public class emaitzakIpiniDAB {
 			reg1.addTransaction(t1);
 			team1.addEvent(ev1);
 			
-			testDA.open();
-			
 			testDA.EmaitzakIpini(quote1);
-			testDA.close();
+			
 			System.out.println("El test 4 ha funcionado como deberia");
 		
 			
@@ -185,6 +188,8 @@ public class emaitzakIpiniDAB {
 			System.out.println(e.getMessage());
 			fail("El test 4 ha fallado" + e.getMessage());
 			
+		}finally{
+			testDA.Clear();
 		}
 	}
 }

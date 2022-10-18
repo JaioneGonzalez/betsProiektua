@@ -65,6 +65,7 @@ public class TestDataAccess {
 		db.close();
 		System.out.println("DataBase closed");
 	}
+	//Borrar
 	public void initializeDB(){
 		
 		db.getTransaction().begin();
@@ -97,6 +98,7 @@ public class TestDataAccess {
 			team1.addEvent(ev1);
 			
 			db.persist(team1);
+			db.persist(team2);
 			db.persist(apA1);
 			db.persist(q1);
 			db.persist(ev1);
