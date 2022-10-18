@@ -5,13 +5,16 @@ import static org.junit.Assert.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.junit.*;
 
+import configuration.UtilDate;
 import dataAccess.DataAccess;
 import domain.Event;
 import domain.Question;
+import domain.Sport;
 import domain.Team;
 import test.dataAccess.TestDataAccess;
 
@@ -30,11 +33,15 @@ public class gertaerakSortuDAB {
 		}  
 		
 	}
-	/*@Test
+	/*
+	@Test
 	public void test1(){
 		// Test con evento nulo deberia de devolver excepcion
 		try {
-			boolean result = dataAccess.gertaerakSortu("", null, "");
+			testDA.open();
+			boolean result = testDA.gertaerakSortu("", null, "");
+			testDA.close();
+			assertFalse(result);
 			fail("----------> El test1 de DAB ha fallado");
 		} 
 		catch (Exception e) {
@@ -47,10 +54,11 @@ public class gertaerakSortuDAB {
 		try {
 			// Test con deporte que no existe deberia devolver false
 			cambiarFecha("17/11/2022");
-			dataAccess.open(true);
-			boolean result = dataAccess.gertaerakSortu("", eventDate, "DeportQueNoExiste");
+			testDA.open();
+			boolean result = testDA.gertaerakSortu("", eventDate, "DeporteQueNoExiste");
+			testDA.close();
 			assertFalse(result);
-			dataAccess.close();
+			
 			System.out.println("----------> El test2 de DAB a funcionado correctamente");
 		} 
 		catch (Exception e) {
@@ -63,10 +71,11 @@ public class gertaerakSortuDAB {
 		try {
 			// Test con desporte disponible pero sin eventos deberia devolver true y añadirlo
 			cambiarFecha("17/11/2022");
-			dataAccess.open(true);
-			boolean result = dataAccess.gertaerakSortu("EventoQueNoExiste", eventDate, "Futbol");
+			testDA.open();
+			testDA.cargarEventoYdeporte();
+			boolean result = testDA.gertaerakSortu("EventoNuevo", eventDate, "Futbol");
+			testDA.close();
 			assertTrue(result);
-			dataAccess.close();
 			System.out.println("----------> El test3 de DAB a funcionado correctamente");
 		} 
 		catch (Exception e) {
