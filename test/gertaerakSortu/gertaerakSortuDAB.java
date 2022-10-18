@@ -33,7 +33,7 @@ public class gertaerakSortuDAB {
 		}  
 		
 	}
-	/*
+	
 	@Test
 	public void test1(){
 		// Test con evento nulo deberia de devolver excepcion
@@ -65,7 +65,7 @@ public class gertaerakSortuDAB {
 			// TODO: handle exception
 			fail("----------> El test2 de DAB ha fallado: "+e.getMessage());
 		}
-	}*/
+	}
 	@Test
 	public void test3(){
 		try {
