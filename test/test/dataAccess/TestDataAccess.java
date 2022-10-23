@@ -140,7 +140,7 @@ public class TestDataAccess {
 		} else 
 		return false;
     }
-		
+	
 	public Event addEventWithQuestion(Integer num, String desc, Date d, String question, float qty, Team lok, Team kanp) {
 		System.out.println(">> DataAccessTest: addEvent");
 		Event ev=null;
@@ -271,26 +271,49 @@ public class TestDataAccess {
 		db.persist(e);
 	}
 	
-	public void cargarEventoYdeporte() {
+	public void cargarEventoYdeporte(Event ev1, Sport sp1) {
 		try {
-			Calendar today = Calendar.getInstance();
-			int month=today.get(Calendar.MONTH);
-			int year=today.get(Calendar.YEAR);
-			if (month==12) { month=0; year+=1;}
-			Team team1= new Team("Atletico");
-			Team team2= new Team("Athletic");
-			Event ev1=new Event(1, "Atletico-Athletic", UtilDate.newDate(year,month,17), team1, team2);
-			Sport sp1=new Sport("Futbol");
 			sp1.addEvent(ev1);
 			ev1.setSport(sp1);
-			db.persist(team1);
-			db.persist(team2);
+			db.persist(ev1.getLokala());
+			db.persist(ev1.getKanpokoa());
 			db.persist(ev1);
 			db.persist(sp1);
 			db.getTransaction().commit();
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+	}
+	public boolean removeSport(Sport sport) {
+		System.out.println(">> DataAccessTest: removeSport");
+		Sport e = db.find(Sport.class, sport.getIzena());
+		if (e!=null) {
+			db.getTransaction().begin();
+			db.remove(e);
+			db.getTransaction().commit();
+			return true;
+		} else 
+		return false;
+    }
+	public boolean removeTeam(Team team) {
+		System.out.println(">> DataAccessTest: removeTeam");
+		Team e = db.find(Team.class, team.getIzena());
+		if (e!=null) {
+			db.getTransaction().begin();
+			db.remove(e);
+			db.getTransaction().commit();
+			return true;
+		} else 
+		return false;
+    }
+	public boolean existEvent(Event ev) {
+		System.out.println(">> DataAccessTest: existEvent");
+		Event e = db.find(Event.class, ev.getEventNumber());
+		if (e!=null) {
+			return true;
+		} else 
+		return false;
+		
 	}
 }
 

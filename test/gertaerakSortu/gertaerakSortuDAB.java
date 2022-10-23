@@ -68,19 +68,31 @@ public class gertaerakSortuDAB {
 	}
 	@Test
 	public void test3(){
+		cambiarFecha("17/11/2022");
+		String description = "Team1-Team2";
+		String[] teams = description.split("-");
+		Team team1 = new Team(teams[0]);
+		Team team2 = new Team(teams[1]);
+		Event ev1=new Event(1, "T", eventDate, team1, team2);
 		try {
-			// Test con desporte disponible pero sin eventos deberia devolver true y añadirlo
-			cambiarFecha("17/11/2022");
+			// Test con desporte disponible pero sin eventos deberia devolver true y aï¿½adirlo
+			
+			
+			boolean result = dataAccess.gertaerakSortu("Team1-Team2", eventDate, "Futbol");
 			testDA.open();
-			testDA.cargarEventoYdeporte();
-			boolean result = testDA.gertaerakSortu("EventoNuevo", eventDate, "Futbol");
+			boolean expect = testDA.existEvent(ev1);
 			testDA.close();
-			assertTrue(result);
+			assertEquals(result,expect);
 			System.out.println("----------> El test3 de DAB a funcionado correctamente");
 		} 
 		catch (Exception e) {
 			// TODO: handle exception
 			fail("----------> El test3 de DAB ha fallado: "+e.getMessage());
+		}
+		finally {
+			testDA.open();
+			testDA.removeEvent(ev1);
+			testDA.close();
 		}
 	}
 }
