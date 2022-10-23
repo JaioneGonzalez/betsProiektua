@@ -27,7 +27,7 @@ public class gertaeraEzabatuDAB {
 			e.printStackTrace();
 		}
 	}
-
+	/*
 	// Evento NULL
 	@Test
 	public void test1() {
@@ -42,7 +42,7 @@ public class gertaeraEzabatuDAB {
 		}
 	}
 
-	// Evento que aún no ha ocurrido
+	// Evento que aï¿½n no ha ocurrido
 	@Test
 	public void test2() {
 		try {
@@ -62,7 +62,7 @@ public class gertaeraEzabatuDAB {
 		}
 	}
 
-	// Evento que ya ha ocurrido y tiene públicos todos los resultados
+	// Evento que ya ha ocurrido y tiene pï¿½blicos todos los resultados
 	@Test
 	public void test3() {
 		try {
@@ -82,5 +82,5 @@ public class gertaeraEzabatuDAB {
 			fail("FAIL" + e.getMessage());
 		}
 	}
-
+	*/
 }

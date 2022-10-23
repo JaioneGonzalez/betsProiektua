@@ -35,8 +35,8 @@ public class gertaeraEzabatuDAW {
 			e.printStackTrace();
 		}
 	}
-
-	// Evento que aún no ha ocurrido
+	/*
+	// Evento que aï¿½n no ha ocurrido
 	@Test
 	public void test1() {
 		try {
@@ -76,5 +76,5 @@ public class gertaeraEzabatuDAW {
 			fail("FAIL" + e.getMessage());
 		}
 	}
-
+	*/
 }

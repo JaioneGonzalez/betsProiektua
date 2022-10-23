@@ -39,6 +39,7 @@ public class emaitzakIpiniDAB {
             e.printStackTrace();
         }
     }
+	/*
 	@Test
 	//Probando con q==null
 	public void test1() {
@@ -192,4 +193,5 @@ public class emaitzakIpiniDAB {
 			testDA.Clear();
 		}
 	}
+	*/
 }

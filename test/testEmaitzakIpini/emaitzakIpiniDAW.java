@@ -17,6 +17,7 @@ import test.dataAccess.TestDataAccess;
 
 public class emaitzakIpiniDAW {
 	static DataAccess testDA = new DataAccess();
+	/*
 	@Test
 	public void test() {
 		try {
@@ -33,5 +34,5 @@ public class emaitzakIpiniDAW {
 			assertTrue(true);
 		}
 	}
-
+	*/
 }
