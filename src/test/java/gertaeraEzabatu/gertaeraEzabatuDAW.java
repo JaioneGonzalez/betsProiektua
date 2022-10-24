@@ -1,6 +1,5 @@
 package gertaeraEzabatu;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.*;
 import static org.junit.Assert.fail;
 
 import java.text.ParseException;
@@ -82,11 +81,11 @@ public class gertaeraEzabatuDAW {
 				
 				// Comprobamos si existe dicho metodo
 				testDA.open();
-				boolean notExpect = testDA.existEvent(ev1);
+				boolean notExpect = !testDA.existEvent(ev1);
 				testDA.close();
 				
 				// El result deberia ser true (buena eliminacion) y el notExpect deberia ser false porque no encuentra el metodo
-				assertNotEquals(result, notExpect);
+				assertEquals(result, notExpect);
 				System.out.println("SUCCESS");
 				
 		} catch (Exception e) {

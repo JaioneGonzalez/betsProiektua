@@ -89,11 +89,11 @@ public class gertaeraEzabatuDAB {
 				
 				// Comprobamos si existe dicho metodo
 				testDA.open();
-				boolean notExpect = testDA.existEvent(ev1);
+				boolean notExpect = !testDA.existEvent(ev1);
 				testDA.close();
 				
 				// El result deberia ser true (buena eliminacion) y el notExpect deberia ser false porque no encuentra el metodo
-				assertNotEquals(result, notExpect);
+				assertEquals(result, notExpect);
 				System.out.println("SUCCESS");
 				
 		} catch (Exception e) {
