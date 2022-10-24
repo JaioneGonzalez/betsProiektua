@@ -1,19 +1,26 @@
-import static org.junit.Assert.*;
+package gertaeraEzabatu;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.fail;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import org.junit.Test;
+
 import dataAccess.DataAccess;
 import domain.Event;
 import domain.Team;
 import test.dataAccess.TestDataAccess;
 
-public class gertaeraEzabatuDAB {
+public class gertaeraEzabatuDAW {
 
-	static DataAccess dataAccess = new DataAccess();
+	// sut:system under test
+	static DataAccess sut = new DataAccess();
+
+	// additional operations needed to execute the test
 	static TestDataAccess testDA = new TestDataAccess();
+
 	Date eventDate;
 
 	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -25,22 +32,10 @@ public class gertaeraEzabatuDAB {
 			e.printStackTrace();
 		}
 	}
-	// Evento NULL
+	
+	// Evento que aun no ha ocurrido
 	@Test
 	public void test1() {
-		try {
-			boolean result = dataAccess.gertaeraEzabatu(null);
-			assertFalse(result);
-			System.out.println("SUCCESS");
-		} catch (Exception e) {
-			System.out.println("FAIL");
-		}
-	}
-
-	// Evento que aun no ha ocurrido
-	
-	@Test
-	public void test2() {
 		cambiarFecha("21/07/2023");
 		String description = "Team1-Team2";
 		String[] teams = description.split("-");
@@ -54,7 +49,7 @@ public class gertaeraEzabatuDAB {
 			testDA.close();
 			
 			// Intentamos eliminar el evento 
-			boolean result = dataAccess.gertaeraEzabatu(ev1);
+			boolean result = sut.gertaeraEzabatu(ev1);
 			
 			// El metodo rechaza eliminar un evento que aun no ha ocurrido
 			assertFalse(result);
@@ -67,11 +62,10 @@ public class gertaeraEzabatuDAB {
 			testDA.close();
 		}
 	}
-
-	// Evento que ya ha ocurrido y tiene p�blicos todos los resultados
 	
+	// Evento que ya se ha celebrado
 	@Test
-	public void test3() {
+	public void test2() {
 			cambiarFecha("21/07/2022");
 			String description = "Team1-Team2";
 			String[] teams = description.split("-");
@@ -84,7 +78,7 @@ public class gertaeraEzabatuDAB {
 				ev1 = testDA.addEventWithQuestion(1, description, eventDate, "pregunta de prueba", 0, team1, team2);
 				testDA.close();
 				
-				boolean result = dataAccess.gertaeraEzabatu(ev1);
+				boolean result = sut.gertaeraEzabatu(ev1);
 				
 				// Comprobamos si existe dicho metodo
 				testDA.open();
@@ -103,4 +97,5 @@ public class gertaeraEzabatuDAB {
 			testDA.close();
 		}
 	}
+	
 }

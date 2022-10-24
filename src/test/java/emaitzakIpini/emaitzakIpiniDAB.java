@@ -1,4 +1,4 @@
-package testEmaitzakIpini;
+package emaitzakIpini;
 
 import static org.junit.Assert.*;
 
