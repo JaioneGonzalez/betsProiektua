@@ -10,6 +10,7 @@ import java.util.Vector;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import configuration.ConfigXML;
@@ -240,10 +241,9 @@ public class TestDataAccess {
 	
 	public void cargarEventoYdeporte(Event ev1, Sport sp1) {
 		try {
+			db.getTransaction().begin();
 			sp1.addEvent(ev1);
 			ev1.setSport(sp1);
-			db.persist(ev1.getLokala());
-			db.persist(ev1.getKanpokoa());
 			db.persist(ev1);
 			db.persist(sp1);
 			db.getTransaction().commit();
@@ -252,28 +252,7 @@ public class TestDataAccess {
 			System.out.println(e.getMessage());
 		}
 	}
-	public boolean removeSport(Sport sport) {
-		System.out.println(">> DataAccessTest: removeSport");
-		Sport e = db.find(Sport.class, sport.getIzena());
-		if (e!=null) {
-			db.getTransaction().begin();
-			db.remove(e);
-			db.getTransaction().commit();
-			return true;
-		} else 
-		return false;
-    }
-	public boolean removeTeam(Team team) {
-		System.out.println(">> DataAccessTest: removeTeam");
-		Team e = db.find(Team.class, team.getIzena());
-		if (e!=null) {
-			db.getTransaction().begin();
-			db.remove(e);
-			db.getTransaction().commit();
-			return true;
-		} else 
-		return false;
-    }
+	
 	public boolean existEvent(Event ev) {
 		System.out.println(">> DataAccessTest: existEvent");
 		Event e = db.find(Event.class, ev.getEventNumber());
@@ -281,7 +260,35 @@ public class TestDataAccess {
 			return true;
 		} else 
 		return false;
-		
 	}
+	public boolean removeODBSport(Sport sport) {
+		System.out.println(">> DataAccessTest: removeSport");
+		db.getTransaction().begin();
+		Query q = db.createQuery("DELETE FROM Sport s WHERE s.izena = ?1");
+		q.setParameter(1, sport);
+		int m = q.executeUpdate();
+		db.getTransaction().commit();
+		return m>0;
+    }
+	public boolean removeODBEvent(Event event) {
+		System.out.println(">> DataAccessTest: removeEvent");
+		db.getTransaction().begin();
+		Query q = db.createQuery("DELETE FROM Event e WHERE e.description = ?1");
+		q.setParameter(1, event.getDescription());
+		int m = q.executeUpdate();
+		db.getTransaction().commit();
+		return m>0;
+    }
+	
+	public boolean removeODBTeam(Team team) {
+		System.out.println(">> DataAccessTest: removeTeam");
+		db.getTransaction().begin();
+		Query q = db.createQuery("DELETE FROM Team t WHERE t.izena = ?1");
+		q.setParameter(1, team.getIzena());
+		int m = q.executeUpdate();
+		db.getTransaction().commit();
+		return m>0;
+    }
+
 }
 

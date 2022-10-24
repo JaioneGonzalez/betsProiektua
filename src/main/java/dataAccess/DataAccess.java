@@ -740,6 +740,7 @@ public void open(boolean initializeMode){
 			TypedQuery<Event> Equery = db.createQuery("SELECT e FROM Event e WHERE e.getEventDate() =?1 ",Event.class);
 			Equery.setParameter(1, eventDate);
 			for(Event ev: Equery.getResultList()) {
+				System.out.println(ev.getDescription()+"---"+description+"--fecha_: "+ev.getEventDate()+" --- "+ eventDate.toString());
 				if(ev.getDescription().equals(description)) {
 					b = false;
 				}
