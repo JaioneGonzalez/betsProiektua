@@ -35,17 +35,16 @@ public class gertaerakSortuDAB {
 	}
 	
 	@Test
-	public void test1(){
+	public void test1() {
 		// Test con evento nulo deberia de devolver excepcion
 		try {
-			testDA.open();
-			boolean result = testDA.gertaerakSortu("", null, "");
-			testDA.close();
-			assertFalse(result);
+			
+			boolean result = dataAccess.gertaerakSortu("", null, "");
 			fail("----------> El test1 de DAB ha fallado");
 		} 
 		catch (Exception e) {
 			// TODO: handle exception
+			dataAccess.close();
 			System.out.println("----------> El test1 de DAB a funcionado correctamente");
 		}
 	}
@@ -54,9 +53,7 @@ public class gertaerakSortuDAB {
 		try {
 			// Test con deporte que no existe deberia devolver false
 			cambiarFecha("17/11/2022");
-			testDA.open();
-			boolean result = testDA.gertaerakSortu("", eventDate, "DeporteQueNoExiste");
-			testDA.close();
+			boolean result = dataAccess.gertaerakSortu("", eventDate, "DeporteQueNoExiste");
 			assertFalse(result);
 			
 			System.out.println("----------> El test2 de DAB a funcionado correctamente");
@@ -66,6 +63,7 @@ public class gertaerakSortuDAB {
 			fail("----------> El test2 de DAB ha fallado: "+e.getMessage());
 		}
 	}
+	/*
 	@Test
 	public void test3(){
 		cambiarFecha("17/11/2022");
@@ -73,7 +71,7 @@ public class gertaerakSortuDAB {
 		String[] teams = description.split("-");
 		Team team1 = new Team(teams[0]);
 		Team team2 = new Team(teams[1]);
-		Event ev1=new Event(1, "T", eventDate, team1, team2);
+		Event ev1=new Event(1, description, eventDate, team1, team2);
 		try {
 			// Test con desporte disponible pero sin eventos deberia devolver true y a�adirlo
 			
@@ -95,4 +93,5 @@ public class gertaerakSortuDAB {
 			testDA.close();
 		}
 	}
+	*/
 }

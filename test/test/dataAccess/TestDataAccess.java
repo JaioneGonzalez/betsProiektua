@@ -238,39 +238,6 @@ public class TestDataAccess {
 		IrabazitakoApustuakMarkatu(q);
 	}
 	
-	
-	public boolean gertaerakSortu(String description,Date eventDate, String sport) {
-		boolean b = true;
-		db.getTransaction().begin();
-		Sport spo =db.find(Sport.class, sport);
-		if(spo!=null) {
-			TypedQuery<Event> Equery = db.createQuery("SELECT e FROM Event e WHERE e.getEventDate() =?1 ",Event.class);
-			Equery.setParameter(1, eventDate);
-			for(Event ev: Equery.getResultList()) {
-				if(ev.getDescription().equals(description)) {
-					b = false;
-				}
-			}
-			if(b) {
-				gsLaguntzaile(description, eventDate, spo);
-			}
-		}else {
-			return false;
-		}
-		db.getTransaction().commit();
-		return b;
-	}
-	
-	public void gsLaguntzaile(String description, Date eventDate, Sport spo) {
-		String[] taldeak = description.split("-");
-		Team lokala = new Team(taldeak[0]);
-		Team kanpokoa = new Team(taldeak[1]);
-		Event e = new Event(description, eventDate, lokala, kanpokoa);
-		e.setSport(spo);
-		spo.addEvent(e);
-		db.persist(e);
-	}
-	
 	public void cargarEventoYdeporte(Event ev1, Sport sp1) {
 		try {
 			sp1.addEvent(ev1);
@@ -282,6 +249,7 @@ public class TestDataAccess {
 			db.getTransaction().commit();
 		} catch (Exception e) {
 			// TODO: handle exception
+			System.out.println(e.getMessage());
 		}
 	}
 	public boolean removeSport(Sport sport) {

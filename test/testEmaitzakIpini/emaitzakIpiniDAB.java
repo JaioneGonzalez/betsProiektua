@@ -31,6 +31,7 @@ public class emaitzakIpiniDAB {
 	
 	
 	static TestDataAccess testDA = new TestDataAccess();
+	static DataAccess dataAccess = new DataAccess();
 	
 	public void cambiarFecha(String fecha) {
         try {
@@ -39,19 +40,14 @@ public class emaitzakIpiniDAB {
             e.printStackTrace();
         }
     }
-	/*
+	
 	@Test
 	//Probando con q==null
 	public void test1() {
-		
 		try {
-			
-			testDA.Clear();
 			testDA.EmaitzakIpini(null);
 			fail("El metodo ha funcionado cuando no deberia");
-			
 		}catch(Exception e) {
-			
 			System.out.println("El test 1 ha funcionado como deberia");
 		}
 	}
@@ -61,9 +57,7 @@ public class emaitzakIpiniDAB {
 	public void test2() {
 		
 		try {
-			testDA.Clear();
 			Calendar today = Calendar.getInstance();
-			   
 			int month=today.get(Calendar.MONTH);
 			month+=1;
 			int year=today.get(Calendar.YEAR);
@@ -88,10 +82,9 @@ public class emaitzakIpiniDAB {
 			Transaction t1 = new Transaction(reg1, apA1.getBalioa(), new Date(), a);
 			reg1.addTransaction(t1);
 			team1.addEvent(ev1);
-			
-			
+			testDA.open();
 			testDA.EmaitzakIpini(quote1);
-			
+			testDA.close();
 			fail("El test 2 ha fallado");
 			
 		
@@ -102,15 +95,13 @@ public class emaitzakIpiniDAB {
 			testDA.Clear();
 		}
 	}
+	
 	@Test
 	//Probando con q que tenga el evento con una fecha que aun no ha pasado
 	public void test3() {
 		
 		try {
-			testDA.Clear();
-			testDA.initializeDB();
 			Calendar today = Calendar.getInstance();
-			   
 			int month=today.get(Calendar.MONTH);
 			month+=1;
 			int year=today.get(Calendar.YEAR);
@@ -151,10 +142,7 @@ public class emaitzakIpiniDAB {
 	public void test4() {
 		
 		try {
-			testDA.Clear();
-			testDA.initializeDB();
 			Calendar today = Calendar.getInstance();
-			   
 			int month=today.get(Calendar.MONTH);
 			month+=1;
 			int year=today.get(Calendar.YEAR);
@@ -180,7 +168,7 @@ public class emaitzakIpiniDAB {
 			reg1.addTransaction(t1);
 			team1.addEvent(ev1);
 			
-			testDA.EmaitzakIpini(quote1);
+			dataAccess.EmaitzakIpini(quote1);
 			
 			System.out.println("El test 4 ha funcionado como deberia");
 		
@@ -189,9 +177,10 @@ public class emaitzakIpiniDAB {
 			System.out.println(e.getMessage());
 			fail("El test 4 ha fallado" + e.getMessage());
 			
-		}finally{
-			testDA.Clear();
+		}finally {
+			testDA.open();
+			// testDA.MetodoQueDeshaceElEmaitzakIpini();
+			testDA.close();
 		}
 	}
-	*/
 }

@@ -11,8 +11,6 @@ import domain.Team;
 import test.dataAccess.TestDataAccess;
 
 public class gertaeraEzabatuDAB {
-	// sut:system under test
-	static DataAccess sut = new DataAccess();
 
 	static DataAccess dataAccess = new DataAccess();
 	static TestDataAccess testDA = new TestDataAccess();
@@ -27,14 +25,11 @@ public class gertaeraEzabatuDAB {
 			e.printStackTrace();
 		}
 	}
-	/*
 	// Evento NULL
 	@Test
 	public void test1() {
 		try {
-			dataAccess.open(true);
-			boolean result = sut.gertaeraEzabatu(null);
-			dataAccess.close();
+			boolean result = dataAccess.gertaeraEzabatu(null);
 			assertFalse(result);
 			System.out.println("SUCCESS");
 		} catch (Exception e) {
@@ -42,45 +37,70 @@ public class gertaeraEzabatuDAB {
 		}
 	}
 
-	// Evento que a�n no ha ocurrido
+	// Evento que aun no ha ocurrido
+	
 	@Test
 	public void test2() {
+		cambiarFecha("21/07/2023");
+		String description = "Team1-Team2";
+		String[] teams = description.split("-");
+		Team team1 = new Team(teams[0]);
+		Team team2 = new Team(teams[1]);
+		Event ev1 = null;
 		try {
-			Team t1 = new Team("t1");
-			Team t2 = new Team("t2");
-			cambiarFecha("21/07/2023");
-
-			dataAccess.open(true);
-			Event ev1 = testDA.addEventWithQuestion(32, " ", eventDate, " ", 0, t1, t2);
-			boolean result = sut.gertaeraEzabatu(ev1);
-			dataAccess.close();
-
+			// Anadimos el evento con la pregunta
+			testDA.open();
+			ev1 = testDA.addEventWithQuestion(1, description, eventDate, "pregunta de prueba", 0, team1, team2);
+			testDA.close();
+			
+			// Intentamos eliminar el evento 
+			boolean result = dataAccess.gertaeraEzabatu(ev1);
+			
+			// El metodo rechaza eliminar un evento que aun no ha ocurrido
 			assertFalse(result);
 			System.out.println("SUCCESS");
 		} catch (Exception e) {
 			fail("FAIL" + e.getMessage());
+		}finally {
+			testDA.open();
+			testDA.removeEvent(ev1);
+			testDA.close();
 		}
 	}
 
 	// Evento que ya ha ocurrido y tiene p�blicos todos los resultados
+	
 	@Test
 	public void test3() {
-		try {
-			Team t1 = new Team("t1");
-			Team t2 = new Team("t2");
 			cambiarFecha("21/07/2022");
-
-			sut.open(true);
-			Event ev1 = testDA.addEventWithQuestion(32, " ", eventDate, " ", 0, t1, t2);
-			ev1.getQuestions().get(0).setResult(" ");
-			boolean result = sut.gertaeraEzabatu(ev1);
-			sut.close();
-
-			assertTrue(result);
-			System.out.println("SUCCESS");
+			String description = "Team1-Team2";
+			String[] teams = description.split("-");
+			Team team1 = new Team(teams[0]);
+			Team team2 = new Team(teams[1]);
+			Event ev1 = null;
+			try {
+				
+				testDA.open();
+				ev1 = testDA.addEventWithQuestion(1, description, eventDate, "pregunta de prueba", 0, team1, team2);
+				testDA.close();
+				
+				boolean result = dataAccess.gertaeraEzabatu(ev1);
+				
+				// Comprobamos si existe dicho metodo
+				testDA.open();
+				boolean notExpect = testDA.existEvent(ev1);
+				testDA.close();
+				
+				// El result deberia ser true (buena eliminacion) y el notExpect deberia ser false porque no encuentra el metodo
+				assertNotEquals(result, notExpect);
+				System.out.println("SUCCESS");
+				
 		} catch (Exception e) {
 			fail("FAIL" + e.getMessage());
+		}finally {
+			testDA.open();
+			testDA.removeEvent(ev1);
+			testDA.close();
 		}
 	}
-	*/
 }
