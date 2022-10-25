@@ -211,34 +211,6 @@ public class TestDataAccess {
 		}
 	}
 	
-	public void EmaitzakIpini(Quote quote) throws EventNotFinished{
-		
-		Quote q = db.find(Quote.class, quote); 
-		String result = q.getForecast();
-		
-		if(new Date().compareTo(q.getQuestion().getEvent().getEventDate())<0)
-			throw new EventNotFinished();
-
-		
-		db.getTransaction().begin();
-		Question que = q.getQuestion(); 
-		Question question = db.find(Question.class, que); 
-		question.setResult(result);
-		for(Quote quo: question.getQuotes()) {
-			for(Apustua apu: quo.getApustuak()) {
-				
-				Boolean b=apu.galdutaMarkatu(quo);
-				if(b) {
-					apu.getApustuAnitza().setEgoera("galduta");
-				}else {
-					apu.setEgoera("irabazita");
-				}
-			}
-		}
-		db.getTransaction().commit();
-		IrabazitakoApustuakMarkatu(q);
-	}
-	
 	public void cargarEventoYdeporte(Event ev1, Sport sp1) {
 		try {
 			db.getTransaction().begin();
@@ -253,6 +225,43 @@ public class TestDataAccess {
 		}
 	}
 	
+	public void cargarQuote(Quote q1) {
+		try {
+			db.getTransaction().begin();
+			db.persist(q1);
+			db.getTransaction().commit();
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+		}
+	}
+	public void cargarDatosIpini(ApustuAnitza apA1, Question q1, Event ev1, Sport sp1, Registered reg1, Quote quote1, Apustua ap1) {
+		try {
+			db.getTransaction().begin();
+			db.persist(apA1);
+			db.persist(q1);
+			db.persist(ev1);
+			db.persist(sp1);
+			db.persist(reg1);
+			db.persist(quote1);
+			db.persist(ap1);
+			db.getTransaction().commit();
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+		}
+	}
+	/*
+	public boolean cambiarFechaODBQuote(Quote q1, Date date) {
+		System.out.println(">> DataAccessTest: cambiandoFechaQuote");
+		db.getTransaction().begin();
+		Query q = db.createQuery("INSERT INTO Quote q WHERE q.quoteNumber = ?1");
+		q.setParameter(1, q1.getQuoteNumber());
+		int m = q.executeUpdate();
+		db.getTransaction().commit();
+		return m>0;
+    }
+	*/
 	public boolean existEvent(Event ev) {
 		System.out.println(">> DataAccessTest: existEvent");
 		Event e = db.find(Event.class, ev.getEventNumber());
@@ -289,6 +298,59 @@ public class TestDataAccess {
 		db.getTransaction().commit();
 		return m>0;
     }
-
+	
+	public boolean removeODBQuote(Quote q1) {
+		System.out.println(">> DataAccessTest: removeQuote");
+		db.getTransaction().begin();
+		Query q = db.createQuery("DELETE FROM Quote q WHERE q.quoteNumber = ?1");
+		q.setParameter(1, q1.getQuoteNumber());
+		int m = q.executeUpdate();
+		db.getTransaction().commit();
+		return m>0;
+    }
+	public boolean removeODBApustuAnitza(ApustuAnitza ap) {
+		System.out.println(">> DataAccessTest: removeApustuAnitza");
+		db.getTransaction().begin();
+		Query q = db.createQuery("DELETE FROM ApustuAnitza ap WHERE ap.apustuAnitzaNumber = ?1");
+		q.setParameter(1, ap.getApustuAnitzaNumber());
+		int m = q.executeUpdate();
+		db.getTransaction().commit();
+		return m>0;
+    }
+	public boolean removeODBApustu(Apustua ap) {
+		System.out.println(">> DataAccessTest: removeApustua");
+		db.getTransaction().begin();
+		Query q = db.createQuery("DELETE FROM Apustu ap WHERE ap.apustuNumber = ?1");
+		q.setParameter(1, ap.getApostuaNumber());
+		int m = q.executeUpdate();
+		db.getTransaction().commit();
+		return m>0;
+    }
+	public boolean removeODBRegistered(Registered r) {
+		System.out.println(">> DataAccessTest: removeRegistered");
+		db.getTransaction().begin();
+		Query q = db.createQuery("DELETE FROM Registered r WHERE r.usrname = ?1");
+		q.setParameter(1, r.getUsername());
+		int m = q.executeUpdate();
+		db.getTransaction().commit();
+		return m>0;
+    }
+	public boolean removeODBQuestion(Question q1) {
+		
+		try {
+			System.out.println(">> DataAccessTest: removeQuestion");
+			db.getTransaction().begin();
+			Query q = db.createQuery("DELETE FROM Question q1 WHERE q1.questionNumber = ?1");
+			q.setParameter(1, q1.getQuestionNumber());
+			int m = q.executeUpdate();
+			db.getTransaction().commit();
+			return m>0;
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("ERROR: "+e.getMessage());
+		}
+		return false;
+    }
 }
 
