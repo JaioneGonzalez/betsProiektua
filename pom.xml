@@ -54,7 +54,7 @@
     <maven.compiler.source>1.8</maven.compiler.source>
         <sonar.organization>jaionegonzalez-1</sonar.organization>
     <sonar.host.url>https://sonarcloud.io/</sonar.host.url>
-    <sonar.login>d259cbcb43face079318fb24689c290e8c401e59</sonar.login> 
+    <sonar.login>3786222d536ad83dc2c9ceaa38ccb5928eb6065c</sonar.login> 
 </properties>
 
 <!-- https://mvnrepository.com/artifact/junit/junit -->
