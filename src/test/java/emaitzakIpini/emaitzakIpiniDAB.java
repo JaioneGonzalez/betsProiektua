@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
@@ -41,6 +42,38 @@ public class emaitzakIpiniDAB {
         }
     }
 	
+	Quote quote1 = null;
+	
+	@Before
+	public void init() {
+		Calendar today = Calendar.getInstance();
+		int month=today.get(Calendar.MONTH);
+		month+=1;
+		int year=today.get(Calendar.YEAR);
+		if (month==12) { month=0; year+=1;}
+		Team team1= new Team("Atletico");
+		Team team2= new Team("Athletic");
+		Event ev1=new Event(1, "Atletico-Athletic", UtilDate.newDate(year,month,17), team1, team2);
+		Sport sp1=new Sport("Futbol");
+		sp1.addEvent(ev1);
+		ev1.setSport(sp1);
+		Question q1;
+		String pregunta1 = "Â¿QuiÃ©n ganarÃ¡ el partido?";
+		q1=ev1.addQuestion(pregunta1,1);
+		quote1 = q1.addQuote(1.3, "1", q1);
+		Registered reg1 =new Registered("registered", "123", 1234);
+		ApustuAnitza apA1 = new ApustuAnitza(reg1, 5.0);
+		Apustua ap1 = new Apustua(apA1, quote1);
+		apA1.addApustua(ap1);
+		quote1.addApustua(ap1);
+		ap1.eguneratuApustuKant(sp1);
+		String a = "ApustuaEgin";
+		Transaction t1 = new Transaction(reg1, apA1.getBalioa(), new Date(), a);
+		reg1.addTransaction(t1);
+		team1.addEvent(ev1);
+		
+	}
+	
 	@Test
 	//Probando con q==null
 	public void test1() {
@@ -57,31 +90,7 @@ public class emaitzakIpiniDAB {
 	public void test2() {
 		
 		try {
-			Calendar today = Calendar.getInstance();
-			int month=today.get(Calendar.MONTH);
-			month+=1;
-			int year=today.get(Calendar.YEAR);
-			if (month==12) { month=0; year+=1;}
-			Team team1= new Team("Atletico");
-			Team team2= new Team("Athletic");
-			Event ev1=new Event(1, "Atletico-Athletic", UtilDate.newDate(year,month,17), team1, team2);
-			Sport sp1=new Sport("Futbol");
-			sp1.addEvent(ev1);
-			ev1.setSport(sp1);
-			Question q1;
-			String pregunta1 = "¿Quién ganará el partido?";
-			q1=ev1.addQuestion(pregunta1,1);
-			Quote quote1 = q1.addQuote(1.3, "1", q1);
-			Registered reg1 =new Registered("registered", "123", 1234);
-			ApustuAnitza apA1 = new ApustuAnitza(reg1, 5.0);
-			Apustua ap1 = new Apustua(apA1, quote1);
-			apA1.addApustua(ap1);
-			quote1.addApustua(ap1);
-			ap1.eguneratuApustuKant(sp1);
-			String a = "ApustuaEgin";
-			Transaction t1 = new Transaction(reg1, apA1.getBalioa(), new Date(), a);
-			reg1.addTransaction(t1);
-			team1.addEvent(ev1);
+			
 			testDA.open();
 			testDA.EmaitzakIpini(quote1);
 			testDA.close();
@@ -101,34 +110,9 @@ public class emaitzakIpiniDAB {
 	public void test3() {
 		
 		try {
-			Calendar today = Calendar.getInstance();
-			int month=today.get(Calendar.MONTH);
-			month+=1;
-			int year=today.get(Calendar.YEAR);
-			if (month==12) { month=0; year+=1;}
-			Team team1= new Team("Atletico");
-			Team team2= new Team("Athletic");
-			Event ev1=new Event(1, "Atletico-Athletic", UtilDate.newDate(year,month,17), team1, team2);
-			Sport sp1=new Sport("Futbol");
-			sp1.addEvent(ev1);
-			ev1.setSport(sp1);
-			Question q1;
-			String pregunta1 = "¿Quién ganará el partido?";
-			q1=ev1.addQuestion(pregunta1,1);
-			Quote quote1 = q1.addQuote(1.3, "1", q1);
-			Registered reg1 =new Registered("registered", "123", 1234);
-			ApustuAnitza apA1 = new ApustuAnitza(reg1, 5.0);
-			Apustua ap1 = new Apustua(apA1, quote1);
-			apA1.addApustua(ap1);
-			quote1.addApustua(ap1);
-			ap1.eguneratuApustuKant(sp1);
-			String a = "ApustuaEgin";
-			Transaction t1 = new Transaction(reg1, apA1.getBalioa(), new Date(), a);
-			reg1.addTransaction(t1);
-			team1.addEvent(ev1);
-			
+			testDA.open();
 			testDA.EmaitzakIpini(quote1);
-			
+			testDA.close();
 			fail("El test 3 ha fallado");
 			
 		}catch(Exception e) {
@@ -142,33 +126,9 @@ public class emaitzakIpiniDAB {
 	public void test4() {
 		
 		try {
-			Calendar today = Calendar.getInstance();
-			int month=today.get(Calendar.MONTH);
-			month+=1;
-			int year=today.get(Calendar.YEAR);
-			if (month==12) { month=0; year+=1;}
-			Team team1= new Team("Atletico");
-			Team team2= new Team("Athletic");
-			Event ev1=new Event(1, "Atletico-Athletic", UtilDate.newDate(year,month,17), team1, team2);
-			Sport sp1=new Sport("Futbol");
-			sp1.addEvent(ev1);
-			ev1.setSport(sp1);
-			Question q1;
-			String pregunta1 = "¿Quién ganará el partido?";
-			q1=ev1.addQuestion(pregunta1,1);
-			Quote quote1 = q1.addQuote(1.3, "1", q1);
-			Registered reg1 =new Registered("registered", "123", 1234);
-			ApustuAnitza apA1 = new ApustuAnitza(reg1, 5.0);
-			Apustua ap1 = new Apustua(apA1, quote1);
-			apA1.addApustua(ap1);
-			quote1.addApustua(ap1);
-			ap1.eguneratuApustuKant(sp1);
-			String a = "ApustuaEgin";
-			Transaction t1 = new Transaction(reg1, apA1.getBalioa(), new Date(), a);
-			reg1.addTransaction(t1);
-			team1.addEvent(ev1);
-			
+			dataAccess.open(false);
 			dataAccess.EmaitzakIpini(quote1);
+			dataAccess.close();
 			
 			System.out.println("El test 4 ha funcionado como deberia");
 		
@@ -184,3 +144,4 @@ public class emaitzakIpiniDAB {
 		}
 	}
 }
+
