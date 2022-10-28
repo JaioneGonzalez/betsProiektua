@@ -121,7 +121,7 @@ public class emaitzakIpiniDAW {
 	}
 	@Test
 	//Probando con q que no tenga apustuak
-	public void test3() {
+	public void test3() throws EventNotFinished {
 		try {
 			
 			cambiarFecha("20/10/2021");

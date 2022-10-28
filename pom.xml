@@ -1,71 +1,71 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>Bets21</groupId>
-  <artifactId>betsProiektua</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>Bets21</groupId>
+	<artifactId>betsProiektua</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
 
-<build>
-    <plugins>
-      <plugin>
-  		<groupId>org.jacoco</groupId>
-  		<artifactId>jacoco-maven-plugin</artifactId>
-  		<version>0.8.5</version>
-  		<executions>
-      		<execution>
-        		<id>prepare-agent</id>
-        		<goals>
-         			<goal>prepare-agent</goal>
-        		</goals>
-      		</execution>
-      		<execution>
-        		<id>report</id>
-        		<goals>
-         			<goal>report</goal>
-        		</goals>
-     		 </execution>
-    	</executions>
-	</plugin>
-	<plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <version>2.19.1</version>
-          <configuration>
-               <testFailureIgnore>true</testFailureIgnore>
-	       <includes>
-                <include>*Int.java</include>
-                <include>*INT.java</include>
-                <include>*DAB.java</include>
-                <include>*DAW.java</include>
-               </includes>
-            </configuration>
-        </plugin>
-   </plugins>
-</build>
- <repositories>
-	<repository>
-		<id>objectdb</id>
-		<name>ObjectDB Repository</name>
-		<url>https://m2.objectdb.com</url>
-	</repository>
-</repositories>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.5</version>
+				<executions>
+					<execution>
+						<id>prepare-agent</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.19.1</version>
+				<configuration>
+					<testFailureIgnore>true</testFailureIgnore>
+					<includes>
+						<include>*Int.java</include>
+						<include>*INT.java</include>
+						<include>*DAB.java</include>
+						<include>*DAW.java</include>
+					</includes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<repositories>
+		<repository>
+			<id>objectdb</id>
+			<name>ObjectDB Repository</name>
+			<url>https://m2.objectdb.com</url>
+		</repository>
+	</repositories>
 
-<properties>
-    <maven.compiler.target>1.8</maven.compiler.target>
-    <maven.compiler.source>1.8</maven.compiler.source>
-        <sonar.organization>jaionegonzalez-1</sonar.organization>
-    <sonar.host.url>https://sonarcloud.io/</sonar.host.url>
-    <sonar.login>3786222d536ad83dc2c9ceaa38ccb5928eb6065c</sonar.login> 
-</properties>
+	<properties>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<sonar.organization>jaionegonzalez-1</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io/</sonar.host.url>
+		<sonar.login>3786222d536ad83dc2c9ceaa38ccb5928eb6065c</sonar.login>
+	</properties>
 
-<!-- https://mvnrepository.com/artifact/junit/junit -->
+	<!-- https://mvnrepository.com/artifact/junit/junit -->
 
-<dependencies>
-	<dependency>
-  	  <groupId>junit</groupId>
-  	  <artifactId>junit</artifactId>
-  	  <version>4.5</version>
- 	   <scope>test</scope>
-	</dependency> 
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.13.2</version>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>com.toedter</groupId>
 			<artifactId>jcalendar</artifactId>
@@ -93,7 +93,7 @@
 			<artifactId>jakarta.xml.ws-api</artifactId>
 			<version>2.3.2</version>
 		</dependency>
-		
+
 		<!-- Runtime -->
 		<dependency>
 			<groupId>com.sun.xml.ws</groupId>
@@ -116,16 +116,22 @@
 			<artifactId>jta</artifactId>
 			<version>1.1</version>
 		</dependency>
-		
-	
-	<!-- test the Gui -->
-		
-		 <dependency>
- 			 <groupId>org.assertj</groupId>
-  			 <artifactId>assertj-swing-junit</artifactId>
- 			 <version>3.8.0</version>
-		 </dependency>
-		 
+
+
+		<!-- test the Gui -->
+
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-swing-junit</artifactId>
+			<version>3.8.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>3.0.0</version>
+			<scope>test</scope>
+		</dependency>
 
 
 	</dependencies>
