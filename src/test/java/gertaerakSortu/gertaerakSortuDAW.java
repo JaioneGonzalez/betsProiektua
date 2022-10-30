@@ -15,7 +15,7 @@ import dataAccess.DataAccess;
 import domain.Event;
 import domain.Sport;
 import domain.Team;
-import test.dataAccess.TestDataAccess;
+import dataAccess.TestDataAccess;
 
 public class gertaerakSortuDAW {
 

@@ -8,7 +8,7 @@ import org.junit.Test;
 import dataAccess.DataAccess;
 import domain.Event;
 import domain.Team;
-import test.dataAccess.TestDataAccess;
+import dataAccess.TestDataAccess;
 
 public class gertaeraEzabatuDAB {
 

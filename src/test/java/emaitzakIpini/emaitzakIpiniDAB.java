@@ -24,7 +24,7 @@ import domain.Registered;
 import domain.Sport;
 import domain.Team;
 import domain.Transaction;
-import test.dataAccess.TestDataAccess;
+import dataAccess.TestDataAccess;
 
 public class emaitzakIpiniDAB {
 	

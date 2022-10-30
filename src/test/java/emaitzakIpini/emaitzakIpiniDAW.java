@@ -21,7 +21,7 @@ import domain.Registered;
 import domain.Sport;
 import domain.Team;
 import exceptions.EventNotFinished;
-import test.dataAccess.TestDataAccess;
+import dataAccess.TestDataAccess;
 
 public class emaitzakIpiniDAW {
 	Date eventDate = null;
