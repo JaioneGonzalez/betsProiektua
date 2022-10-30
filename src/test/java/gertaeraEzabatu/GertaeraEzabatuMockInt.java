@@ -50,7 +50,7 @@ public class GertaeraEzabatuMockInt {
 		}
 	}
 	
-	// Evento que aún no ha ocurrido
+	// Evento que aun no ha ocurrido
 	@Test
 	public void test2() {
 		try {
@@ -66,7 +66,7 @@ public class GertaeraEzabatuMockInt {
 		}
 	}
 	
-	// Evento que ya ha ocurrido y tiene públicos todos los resultados
+	// Evento que ya ha ocurrido y tiene publicos todos los resultados
 	@Test
 	public void test3() {
 		try {
