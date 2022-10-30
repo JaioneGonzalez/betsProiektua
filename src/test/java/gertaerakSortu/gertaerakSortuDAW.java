@@ -57,6 +57,7 @@ public class gertaerakSortuDAW {
 		testDA.cargarEventoYdeporte(ev1, sport);
 		testDA.close();
 	}
+	/*
 	
 	@Test
 	public void test1(){
@@ -135,6 +136,7 @@ public class gertaerakSortuDAW {
 			testDA.close();
 		}
 	}
+	*/
 	
 	@After
 	public void before() {
