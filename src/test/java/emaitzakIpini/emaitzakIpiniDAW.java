@@ -121,17 +121,15 @@ public class emaitzakIpiniDAW {
 	}
 	@Test
 	//Probando con q que no tenga apustuak
-	public void test3() throws EventNotFinished {
+	public void test3() {
 		try {
 			
+			System.out.print(ap1.getApostuaNumber());
 			cambiarFecha("20/10/2021");
 			quote1.getQuestion().getEvent().setEventDate(eventDate);
-			//borramos las apuestas que tenga el quote
-			for (Apustua a: quote1.getApustuak()) {
-				quote1.removeApustua(a);
-			}
 			testDA.open();
 			testDA.cargarDatosIpini(apA1, q1, ev1, sp1, reg1, quote1, ap1);
+			quote1.removeApustua(ap1);
 			testDA.close();
 			dataAccess.open(false);
 			dataAccess.EmaitzakIpini(quote1);
@@ -143,10 +141,10 @@ public class emaitzakIpiniDAW {
 			
 		}finally {
 			testDA.open();
+			
 			// testDA.MetodoQueDeshaceElEmaitzakIpini();
 			testDA.close();
 		}
-		
 	}
 	@Test
 	//Probando con q cuya su pregunta no tenga quotes
