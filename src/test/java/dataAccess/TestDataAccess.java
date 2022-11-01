@@ -352,5 +352,19 @@ public class TestDataAccess {
 		}
 		return false;
     }
+	public Apustua getApostua(Apustua ap) {
+		Apustua retAp = db.find(Apustua.class, ap.getApostuaNumber());
+		return retAp;
+	}
+	public Quote getQuote(Quote quo1) {
+		Quote retQuote = db.find(Quote.class, quo1.getQuoteNumber());
+		return retQuote;
+	}
+	public ApustuAnitza getApustuAnitza(ApustuAnitza apA) {
+		ApustuAnitza apA1 = db.find(ApustuAnitza.class, apA.getApustuAnitzaNumber());
+		return apA1;
+	}
 }
+
+
 
