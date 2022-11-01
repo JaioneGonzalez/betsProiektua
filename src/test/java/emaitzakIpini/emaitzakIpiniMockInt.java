@@ -51,10 +51,10 @@ DataAccess dataAccess = Mockito.mock(DataAccess.class);
 			ArgumentCaptor<Quote> quoteCaptor = ArgumentCaptor.forClass(Quote.class);
 			Mockito.verify(dataAccess, Mockito.times(0)).EmaitzakIpini(quoteCaptor.capture());
 			
-			System.out.println("El test 1 ha funcionado como deberia");
 			
-		}catch(Exception e) {
 			fail("El metodo ha funcionado cuando no deberia");
+		}catch(Exception e) {
+			System.out.println("El test 1 ha funcionado como deberia");
 		}
 	}
 	
@@ -76,12 +76,10 @@ DataAccess dataAccess = Mockito.mock(DataAccess.class);
 			sut.EmaitzakIpini(quote);
 			ArgumentCaptor<Quote> quoteCaptor = ArgumentCaptor.forClass(Quote.class);
 			Mockito.verify(dataAccess, Mockito.times(0)).EmaitzakIpini(quoteCaptor.capture());
-			
-			System.out.println("El test 2 ha funcionado como deberia");
 		
-			
+			fail("El test 2 ha fallado");
 		}catch(Exception e) {
-			fail("El test 2 ha fallado: " + e.getMessage());
+			System.out.println("El test 2 ha funcionado como deberia");
 		}
 	}
 	@Test
@@ -103,15 +101,16 @@ DataAccess dataAccess = Mockito.mock(DataAccess.class);
 			ArgumentCaptor<Quote> quoteCaptor = ArgumentCaptor.forClass(Quote.class);
 			Mockito.verify(dataAccess, Mockito.times(0)).EmaitzakIpini(quoteCaptor.capture());
 			
-			System.out.println("El test 3 ha funcionado como deberia");
-		
+			
+			fail("El test 3 ha fallado");
 			
 		}catch(Exception e) {
-			fail("El test 3 ha fallado: " + e.getMessage());
+			
+			System.out.println("El test 3 ha funcionado como deberia");
 		}
 	}
 	@Test
-	//Probando con q que tenga el evento con una fecha que aun no ha pasado
+	//Probando con q que tenga el evento con una fecha que haya pasado
 	public void test4() {
 		
 		try {
@@ -135,5 +134,5 @@ DataAccess dataAccess = Mockito.mock(DataAccess.class);
 		}catch(Exception e) {
 			fail("El test 4 ha fallado: " + e.getMessage());
 		}
-	}
+	}//
 }
