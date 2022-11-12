@@ -9,6 +9,8 @@ import java.util.Vector;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
+import Iterator.ExtendedIterator;
+import Iterator.ExtendedIteratorEvents;
 import configuration.ConfigXML;
 import dataAccess.ApustuaEginParameter;
 import dataAccess.DataAccess;
@@ -105,6 +107,11 @@ public class BLFacadeImplementation  implements BLFacade {
 		Vector<Event>  events=dbManager.getEvents(date);
 		dbManager.close();
 		return events;
+	}
+    
+    @WebMethod	
+	public ExtendedIterator<Event>	getEventsIterator(Date	date){
+		return new ExtendedIteratorEvents(getEvents(date));
 	}
 
     
