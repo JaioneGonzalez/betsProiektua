@@ -17,8 +17,6 @@ import domain.Registered;
 public class RegisteredAdapter extends AbstractTableModel{
 	private Registered register;
 	private String[] header = {"Event", "Question", "Event Date", "Bet(€)"};
-	
-	
 	private Map<Integer, List<String>> contenido = new HashMap<Integer, List<String>>();
 	int i = 0;
 	public RegisteredAdapter(Registered register) {
@@ -41,7 +39,6 @@ public class RegisteredAdapter extends AbstractTableModel{
 			}
 		}
 	}
-	
 	@Override
 	public int getRowCount() {
 		return i;
