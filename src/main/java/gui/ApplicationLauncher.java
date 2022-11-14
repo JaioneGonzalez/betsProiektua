@@ -19,8 +19,6 @@ import dataAccess.DataAccess;
 
 public class ApplicationLauncher { 
 	
-	
-	
 	public static void main(String[] args) {
 
 		ConfigXML c=ConfigXML.getInstance();
@@ -52,8 +50,6 @@ public class ApplicationLauncher {
 			System.out.println("Error in ApplicationLauncher: "+e.toString());
 		}
 		//a.pack();
-
-
 	}
 
 }
